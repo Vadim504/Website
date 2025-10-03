@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КВ-Ремстрой</title>
+    {% load static %}
+    
+    <!-- ИСПРАВЬТЕ ЭТУ СТРОКУ -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <span>КВ-Ремстрой</span>
+        </div>
+        
+        <div class="header-right">
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="{% url 'home' %}" class="active">Главная</a></li>
+                    <li><a href="{% url 'about' %}">О нас</a></li>
+                    <li><a href="{% url 'services' %}">Услуги</a></lsi>
+                    <li><a href="{% url 'projects' %}">Проекты</a></li>
+                    <li><a href="{% url 'contacts' %}">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="contact">+7 123-456-7890</div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Ваш контент здесь -->
+    </main>
+</body>
+</html>
