@@ -1,0 +1,59 @@
+/* static/css/about.css */
+
+.about-hero {
+    background: linear-gradient(135deg, #f9f7f0 0%, #ffffff 100%);
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.about-hero h1 {
+    font-size: 2.8rem;
+    color: #222;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.about-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px; /* Отступы сверху/снизу и по бокам */
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+    background: transparent; /* Без фона */
+}
+
+/* Абзацы — по ширине */
+.about-content p {
+    text-align: justify;
+    margin-bottom: 1.2em;
+}
+
+/* Лозунг — по левому краю */
+.about-content .slogan {
+    text-align: left;
+    font-style: italic;
+    font-weight: 500;
+    color: #222;
+    margin-top: 2em;
+    padding-left: 20px;
+    border-left: 4px solid #d48a3e;
+}
+
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+    .about-content {
+        padding: 30px 15px;
+        font-size: 15px;
+    }
+
+    .about-content p {
+        text-align: left; /* На мобильных — лучше слева */
+        margin-bottom: 1em;
+    }
+
+    .about-content .slogan {
+        padding-left: 10px;
+        font-size: 14px;
+    }
+}

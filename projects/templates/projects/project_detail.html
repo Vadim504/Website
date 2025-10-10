@@ -1,0 +1,166 @@
+<!-- projects/templates/projects/project_detail.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'projects/css/project_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="project-detail-page">
+    <!-- Верхняя строка: название + цена -->
+    <div class="header-row">
+        <h2 class="project-title">{{ project.title }}</h2>
+    </div>
+
+    <!-- Основной контент: изображение + характеристики -->
+    <div class="main-content">
+        <!-- Галерея и характеристики в одной строке -->
+        <div class="">
+            <!-- Галерея изображений -->
+            <div class="image-gallery">
+                <!-- Основное изображение -->
+                <div class="main-image-container">
+                    {% if project.images.all %}
+                        <div class="image-counter">
+                            <span id="current-image">1</span>/<span id="total-images">{{ project.images.all|length }}</span>
+                        </div>
+                        <img id="main-image" src="{{ project.images.first.image.url }}" alt="Фото проекта" class="main-image">
+                    {% elif project.main_image %}
+                        <div class="image-counter">
+                            <span id="current-image">1</span>/<span id="total-images">1</span>
+                        </div>
+                        <img id="main-image" src="{{ project.main_image.url }}" alt="Фото проекта" class="main-image">
+                    {% else %}
+                        <div class="no-image-placeholder">
+                            <p>Изображение не загружено</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Миниатюры -->
+                {% if project.images.all %}
+                    <div class="thumbnails-container">
+                        {% for img in project.images.all %}
+                            <div class="thumbnail {% if forloop.first %}active{% endif %}" data-image="{{ img.image.url }}">
+                                <img src="{{ img.image.url }}" alt="Фото проекта {{ forloop.counter }}" class="thumbnail-image">
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% elif project.main_image %}
+                    <div class="thumbnails-container">
+                        <p>Только главное изображение:</p>
+                        <div class="thumbnail active" data-image="{{ project.main_image.url }}">
+                            <img src="{{ project.main_image.url }}" alt="Фото проекта" class="thumbnail-image">
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="thumbnails-container">
+                        <p>Нет изображений для отображения</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="price-block">
+                <span class="price-label">Цена:</span>
+                <span class="price">{{ project.price|floatformat:0 }} ₽</span>
+            </div>
+
+            <!-- Характеристики -->
+            <div class="specs-section">
+                <h3>Характеристики</h3>
+                <div class="specs">
+                    <div class="spec-item">
+                        <span class="label">Площадь дома:</span>
+                        <span class="value">{{ project.area_total }} м²</span>
+                    </div>
+                    {% if project.area_garage %}
+                        <div class="spec-item">
+                            <span class="label">Навес для авто:</span>
+                            <span class="value">{{ project.area_garage }} м²</span>
+                        </div>
+                    {% endif %}
+                    {% if project.area_terrace %}
+                        <div class="spec-item">
+                            <span class="label">Крытая терраса:</span>
+                            <span class="value">{{ project.area_terrace }} м²</span>
+                        </div>
+                    {% endif %}
+                    <div class="spec-item">
+                        <span class="label">Спальни:</span>
+                        <span class="value">{{ project.bedrooms }}</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="label">Санузлы:</span>
+                        <span class="value">{{ project.bathrooms }}</span>
+                    </div>
+                </div>
+
+                <!-- Материалы -->
+                <div class="materials">
+                    <h3>Материалы:</h3>
+                    {% for material in project.materials.all %}
+                        <span class="material-tag">{{ material.name }}</span>
+                    {% empty %}
+                        <span>Не указаны</span>
+                    {% endfor %}
+                </div>
+
+                <!-- Особенности -->
+                <div class="features">
+                    <h3>Особенности:</h3>
+                    {% for feature in project.features.all %}
+                        <span class="feature-tag">{{ feature.name }}</span>
+                    {% empty %}
+                        <span>Нет особенностей</span>
+                    {% endfor %}
+                </div>
+
+                <!-- Описание -->
+                <div class="description">
+                    <h3>Описание проекта</h3>
+                    {{ project.description|linebreaks }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="lightbox" class="lightbox">
+    <div class="lightbox-content">
+        <!-- Счётчик -->
+        <div class="lightbox-counter">1 / {{ project.images.all|length }}</div>
+
+        <!-- Кнопка закрытия -->
+        <span class="lightbox-close">&times;</span>
+
+        <!-- Стрелки -->
+        <button class="lightbox-prev">&#10094;</button>
+        <img id="lightbox-main-image" class="lightbox-img" src="" alt="Увеличенное изображение">
+
+        <!-- Миниатюры справа -->
+        <div class="lightbox-thumbnails">
+            {% for img in project.images.all %}
+                <div class="lightbox-thumbnail {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}">
+                    <img src="{{ img.image.url }}" alt="Миниатюра {{ forloop.counter }}">
+                </div>
+            {% endfor %}
+        </div>
+
+        <button class="lightbox-next">&#10095;</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'projects/js/project_detail.js' %}"></script>
+    <script>
+        console.log("JavaScript загружен в HTML!");
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM готов!");
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            console.log("Найдено миниатюр в HTML:", thumbnails.length);
+        });
+    </script>
+{% endblock %}

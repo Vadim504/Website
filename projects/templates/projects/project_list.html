@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Наши проекты домов{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'projects/css/project_list.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'projects/js/project_list.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="projects-page">
+    <h1>Наши проекты домов</h1>
+
+    <div class="layout">
+        <!-- Боковая панель фильтров -->
+        <aside class="filters-sidebar">
+           <form method="get" class="filter-form">
+                <div class="filter-section">
+                    <h3>Стоимость, ₽</h3>
+                    <div class="price-range">
+                        <div class="range-values">
+                            <span id="min-price-value">{{ min_price|default:"0" }}</span>
+                            <span id="max-price-value">{{ max_price|default:"100000000" }}</span>
+                        </div>
+                        <div class="range-slider-container">
+                            <div class="range-slider">
+                                <div class="range-track"></div>
+                                <div class="range-fill"></div>
+                                <input type="range" id="min-price-slider" name="min_price" min="0" max="100000000" value="{{ min_price|default:0 }}" step="100000">
+                                <input type="range" id="max-price-slider" name="max_price" min="0" max="100000000" value="{{ max_price|default:100000000 }}" step="100000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Площадь, м²</h3>
+                    <div class="area-range">
+                        <div class="range-values">
+                            <span id="min-area-value">{{ min_area|default:"1" }}</span>
+                            <span id="max-area-value">{{ max_area|default:"500" }}</span>
+                        </div>
+                        <div class="range-slider-container">
+                            <div class="range-slider">
+                                <div class="range-track"></div>
+                                <div class="range-fill"></div>
+                                <input type="range" id="min-area-slider" name="min_area" min="1" max="500" value="{{ min_area|default:1 }}" step="1">
+                                <input type="range" id="max-area-slider" name="max_area" min="1" max="500" value="{{ max_area|default:500 }}" step="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Количество этажей</h3>
+                    <div class="floor-selector">
+                        <button type="button" class="floor-btn {% if floors == '1' %}active{% endif %}" data-floor="1">1</button>
+                        <button type="button" class="floor-btn {% if floors == '2' %}active{% endif %}" data-floor="2">2</button>
+                    </div>
+                    <input type="hidden" name="floors" id="floors-input" value="{{ floors }}">
+                </div>
+
+                <div class="filter-section">
+                    <h3>Количество комнат</h3>
+                    <div class="room-selector">
+                        <button type="button" class="room-btn {% if bedrooms == '1' %}active{% endif %}" data-rooms="1">1</button>
+                        <button type="button" class="room-btn {% if bedrooms == '2' %}active{% endif %}" data-rooms="2">2</button>
+                        <button type="button" class="room-btn {% if bedrooms == '3' %}active{% endif %}" data-rooms="3">3</button>
+                        <button type="button" class="room-btn {% if bedrooms == '4' %}active{% endif %}" data-rooms="4">4</button>
+                        <button type="button" class="room-btn {% if bedrooms == '5' %}active{% endif %}" data-rooms="5">5+</button>
+                    </div>
+                    <input type="hidden" name="bedrooms" id="bedrooms-input" value="{{ bedrooms }}">
+                </div>
+
+                <div class="filter-section">
+                    <h3>Количество санузлов</h3>
+                    <div class="bathroom-selector">
+                        <button type="button" class="bathroom-btn {% if bathrooms == '1' %}active{% endif %}" data-bathrooms="1">1</button>
+                        <button type="button" class="bathroom-btn {% if bathrooms == '2' %}active{% endif %}" data-bathrooms="2">2</button>
+                        <button type="button" class="bathroom-btn {% if bathrooms == '3' %}active{% endif %}" data-bathrooms="3">3</button>
+                        <button type="button" class="bathroom-btn {% if bathrooms == '4' %}active{% endif %}" data-bathrooms="4">4+</button>
+                    </div>
+                    <input type="hidden" name="bathrooms" id="bathrooms-input" value="{{ bathrooms }}">
+                </div>
+
+                <div class="filter-actions">
+                    <button type="submit" class="btn-apply">Применить</button>
+                    <button type="button" class="btn-reset" onclick="resetFilters()">Сбросить</button>
+                </div>
+            </form>
+        </aside>
+
+        <!-- Основной контент: список проектов -->
+        <div class="projects-content">
+            {% if projects %}
+                <div class="projects-grid">
+                    {% for project in projects %}
+                        <a href="{% url 'projects:detail' project.slug %}" class="project-card-link">
+                            <div class="project-card">
+                                {% if project.main_image %}
+                                    <img src="{{ project.main_image.url }}" alt="{{ project.title }}">
+                                {% else %}
+                                    <div class="placeholder">Нет изображения</div>
+                                {% endif %}
+                                <div class="card-content">
+                                    <h2>{{ project.title }}</h2>
+                                    <p class="price">{{ project.price|floatformat:0 }} ₽</p>
+                                    <p class="specs">
+                                        {{ project.area_total }} м² • 
+                                        {{ project.bedrooms }} сп. • 
+                                        {{ project.bathrooms }} с/у
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="no-projects">Пока нет проектов. Загляните позже!</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

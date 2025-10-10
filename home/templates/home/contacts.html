@@ -1,0 +1,112 @@
+<!-- home/templates/home/contacts.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Контакты - КВ-Ремстрой{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'home/css/contacts.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Сообщения Django -->
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="contact-header">
+        <h1>Давайте обсудим ваш новый проект</h1>
+        <p>Заполните форму или позвоните нам для бесплатной консультации.</p>
+    </div>
+    
+    <div class="contact-content">
+        <!-- Левая колонка - контактная информация -->
+        <div class="contact-info">
+            <div class="info-section">
+                <h3>Территория работы:</h3>
+                <div class="info-item">
+                    <strong>Города:</strong>
+                    <span>Москва, Московская область и Санкт-Петербург</span>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Адрес:</h3>
+                <div class="info-item">
+                    <strong>Офис:</strong>
+                    <span>ул. Арбат, 1а, Москва, 119019, Российская Федерация</span>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Контакты:</h3>
+                <div class="info-item">
+                    <strong>Email:</strong>
+                    <span>info@mysite.ru</span>
+                </div>
+                <div class="info-item">
+                    <strong>Телефон:</strong>
+                    <span>+7 123 456-7890</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Правая колонка - форма обратной связи -->
+        <div class="contact-form">
+            <form id="contactForm" method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName" class="required">Имя</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName" class="required">Фамилия</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email" class="required">Эл. почта</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Адрес</label>
+                    <input type="text" id="address" name="address">
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Тема</label>
+                    <input type="text" id="subject" name="subject">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Текст сообщения</label>
+                    <textarea id="message" name="message" placeholder="Текст сообщения..."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Отправить</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Подключаем специфичные для контактов скрипты -->
+<script src="{% static 'home/js/contacts.js' %}"></script>
+{% endblock %}

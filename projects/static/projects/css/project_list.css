@@ -1,0 +1,372 @@
+/* Стили только для страницы списка проектов */
+.projects-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: left;
+}
+
+.projects-page h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+/* Гибкая раскладка: фильтры слева, проекты справа */
+.layout {
+    display: flex;
+    gap: 30px;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+/* Боковая панель фильтров */
+.filters-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+/* Боковая панель фильтров */
+/* Форма фильтрации */
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.filter-section {
+    margin-bottom: 20px;
+}
+
+.filter-section h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Переключатель этажей */
+.floor-selector {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.floor-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    background: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.floor-btn.active {
+    background: #e74c3c;
+    color: white;
+    border-color: #e74c3c;
+}
+
+.floor-btn:hover {
+    background: #f8f9fa;
+    border-color: #ccc;
+}
+
+/* Переключатели комнат и санузлов */
+.room-selector,
+.bathroom-selector {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.room-btn,
+.bathroom-btn {
+    min-width: 40px;
+    height: 40px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+}
+
+.room-btn.active,
+.bathroom-btn.active {
+    background: #e74c3c;
+    color: white;
+    border-color: #e74c3c;
+}
+
+.room-btn:hover,
+.bathroom-btn:hover {
+    background: #f8f9fa;
+    border-color: #ccc;
+}
+
+/* Слайдеры */
+.range-slider-container {
+    margin: 10px 0;
+}
+
+.range-slider {
+    position: relative;
+    height: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.range-track {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: #ddd;
+    border-radius: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.range-fill {
+    position: absolute;
+    height: 4px;
+    background: #e74c3c;
+    border-radius: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.1s ease;
+}
+
+.range-slider input[type="range"] {
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    background: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    cursor: pointer;
+}
+
+.range-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #e74c3c;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: all 0.1s ease;
+}
+
+.range-slider input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.range-slider input[type="range"]::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #e74c3c;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: all 0.1s ease;
+}
+
+.range-slider input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.range-slider input[type="range"]::-webkit-slider-track {
+    background: transparent;
+    height: 4px;
+}
+
+.range-slider input[type="range"]::-moz-range-track {
+    background: transparent;
+    height: 4px;
+    border: none;
+}
+
+/* Значения слайдеров */
+.range-values {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.range-values span {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Кнопки действий */
+.filter-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-apply {
+    background: #e74c3c;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.2s;
+    flex: 1;
+}
+
+.btn-apply:hover {
+    background: #c0392b;
+}
+
+.btn-reset {
+    background: #95a5a6;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.2s;
+    flex: 1;
+}
+
+.btn-reset:hover {
+    background: #7f8c8d;
+}
+/* Основной контент с проектами */
+.projects-content {
+    flex: 1;
+    min-height: 300px;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    max-width: 100%;
+}
+
+.project-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.project-card-link {
+    text-decoration: none;
+    display: block;
+    color: inherit;
+}
+
+.project-card-link:hover .project-card {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.project-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.placeholder {
+    width: 100%;
+    height: 220px;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+.card-content {
+    padding: 16px;
+}
+
+.card-content h2 {
+    font-size: 1.3rem;
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.price {
+    font-size: 1.4rem;
+    color: #e74c3c;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.specs {
+    color: #666;
+    font-size: 0.95rem;
+    margin: 8px 0 16px;
+}
+
+.no-projects {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #777;
+    padding: 40px;
+}
+
+/* Адаптивность: на мобильных фильтры сверху */
+@media (max-width: 900px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .filters-sidebar {
+        width: 100%;
+        position: static;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Переопределение базовых стилей для этой страницы */
+.projects-page main {
+    padding: 0;
+}

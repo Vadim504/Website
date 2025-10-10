@@ -10,6 +10,15 @@ body {
     line-height: 1.6;
 }
 
+.logo-img-small {
+    width: 60px;
+    height: auto;
+    margin-right: 10px;
+}
+
+main {
+    padding: 50px;
+}
 /* Хедер */
 .header {
     display: flex;
@@ -80,8 +89,3 @@ body {
     white-space: nowrap;
 }
 
-/* Основной контент */
-main {
-    padding: 50px;
-    text-align: center;
-}

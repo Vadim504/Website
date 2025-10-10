@@ -1,0 +1,61 @@
+<!-- templates/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Название сайта{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_css %}{% endblock %}
+    {% block extra_js %}{% endblock %}
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="logo">
+            <a href="{% url 'home' %}">
+                <img 
+                    src="{% static 'images/logo.png' %}" 
+                    alt="Квадрат" 
+                    class="logo-img-small"
+                    style="
+                        width: 60px;
+                        height: auto;
+                        border: none;
+                        outline: none;
+                        box-shadow: none;
+                        margin-right: 10px;
+                        display: inline-block;
+                        vertical-align: middle;
+                    "
+                >
+            </a>
+        </div>
+        <div class="header-right">
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="{% url 'home' %}">Главная</a></li>
+                    <li><a href="{% url 'about' %}">О нас</a></li>
+                    <li><a href="{% url 'services:services' %}">Услуги</a></li>
+                    <li><a href="{% url 'projects:list' %}">Проекты</a></li>
+                    <li><a href="{% url 'contacts' %}">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main class="main">
+        {% block content %}
+        <!-- Сюда будет подставляться содержимое дочерних шаблонов -->
+        {% endblock %}
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <p>&copy; 2024 Название компании. Все права защищены.</p>
+    </footer>
+
+</body>
+</html>

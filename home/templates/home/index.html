@@ -1,37 +1,45 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>КВ-Ремстрой</title>
-    {% load static %}
-    
-    <!-- ИСПРАВЬТЕ ЭТУ СТРОКУ -->
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-</head>
-<body>
-    <header class="header">
-        <div class="logo">
-            <span>КВ-Ремстрой</span>
-        </div>
-        
-        <div class="header-right">
-            <nav class="nav-menu">
-                <ul>
-                    <li><a href="{% url 'home' %}" class="active">Главная</a></li>
-                    <li><a href="{% url 'about' %}">О нас</a></li>
-                    <li><a href="{% url 'services' %}">Услуги</a></lsi>
-                    <li><a href="{% url 'projects' %}">Проекты</a></li>
-                    <li><a href="{% url 'contacts' %}">Контакты</a></li>
-                </ul>
-            </nav>
+{% extends 'base.html' %}
+{% load static %}
 
-            <div class="contact">+7 123-456-7890</div>
-        </div>
-    </header>
+{% block title %}Дома под ключ | Строительство и проектирование{% endblock %}
 
-    <main>
-        <!-- Ваш контент здесь -->
-    </main>
-</body>
-</html>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Знаковые проекты -->
+<section class="featured-projects" id="projects">
+    <div class="container">
+        <h2>ЗНАКОВЫЕ ПРОЕКТЫ</h2>
+
+        <!-- Фильтры -->
+        <div class="project-filters">
+            <button class="filter-btn active" data-filter="all">ГОТОВЫЕ ОБЪЕКТЫ</button>
+            <button class="filter-btn" data-filter="landscape">ЛАНДШАФТЫ</button>
+            <button class="filter-btn" data-filter="interiors">ИНТЕРЬЕРЫ</button>
+        </div>
+
+        <!-- Сетка проектов -->
+        <div class="projects-grid">
+            {% for project in projects %}
+                <div class="project-card" data-category="all">
+                    <a href="{% url 'projects:detail' project.slug %}" class="project-card-link">
+                        {% if project.main_image %}
+                            <img src="{{ project.main_image.url }}" alt="{{ project.title }}">
+                        {% else %}
+                            <div class="placeholder">Нет изображения</div>
+                        {% endif %}
+                        <div class="project-info">
+                            <h3>{{ project.title }}</h3>
+                            <p>{{ project.area_total }} м² • {{ project.bedrooms }} сп. • {{ project.bathrooms }} с/у</p>
+                        </div>
+                    </a>
+                </div>
+            {% empty %}
+                <p class="no-projects">Пока нет проектов.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
