@@ -1,0 +1,64 @@
+/* === ГАЛЕРЕЯ ПЛАНОВ === */
+.plan-gallery {
+    margin: 40px 0;
+}
+
+.gallery-wrapper {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.main-image-container {
+    flex: 1;
+    text-align: center;
+    position: relative;
+}
+
+.image-counter {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+#main-plan-image {
+    max-width: 100%;
+    height: auto;
+    cursor: zoom-in;
+    transition: opacity 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.thumbnails-container.plan-thumbnails {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.thumbnail {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    flex: 0 0 auto;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    display: block;
+    border-radius: 4px;
+}
+
+.thumbnail.active {
+    border-color: #e74c3c;
+}

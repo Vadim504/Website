@@ -2,9 +2,24 @@ from django.shortcuts import render, get_object_or_404
 from .models import HouseProject
 
 
+# views.py
 def project_detail(request, slug):
     project = get_object_or_404(HouseProject, slug=slug)
-    return render(request, 'projects/project_detail.html', {'project': project})
+    
+    # Добавляем расчёт цены за м² для каждого этапа
+    stages_with_costs = []
+    for stage in project.stages.all():
+        stages_with_costs.append({
+            'stage': stage,
+            'cost_frame_per_sq': stage.cost_frame / project.area_total if project.area_total else 0,
+            'cost_gasconcrete_per_sq': stage.cost_gasconcrete / project.area_total if project.area_total else 0,
+            'cost_brick_per_sq': stage.cost_brick / project.area_total if project.area_total else 0,
+        })
+
+    return render(request, 'projects/project_detail.html', {
+        'project': project,
+        'stages_with_costs': stages_with_costs,
+    })
 
 def project_list(request):
     # Начинаем с всех проектов
@@ -53,3 +68,4 @@ def project_list(request):
     }
 
     return render(request, 'projects/project_list.html', context)
+

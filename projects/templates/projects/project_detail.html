@@ -1,11 +1,14 @@
 <!-- projects/templates/projects/project_detail.html -->
 {% extends 'base.html' %}
+{% load static humanize %}
 {% load static %}
 
 {% block title %}{{ project.title }}{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'projects/css/project_detail.css' %}">
+     <link rel="stylesheet" href="{% static 'projects/css/plan.css' %}">
+    
 {% endblock %}
 
 {% block content %}
@@ -97,17 +100,107 @@
                         <span class="value">{{ project.bathrooms }}</span>
                     </div>
                 </div>
+                
+                <!-- === ДИНАМИЧЕСКИЙ ПЛАН ИЗ АДМИНКИ === -->
+                <section class="plan-gallery">
+                    <h2>ПЛАНЫ И ФАСАДЫ</h2>
 
-                <!-- Материалы -->
-                <div class="materials">
-                    <h3>Материалы:</h3>
-                    {% for material in project.materials.all %}
-                        <span class="material-tag">{{ material.name }}</span>
-                    {% empty %}
-                        <span>Не указаны</span>
-                    {% endfor %}
-                </div>
+                    <div class="gallery-wrapper">
+                        <!-- Основное изображение -->
+                        <div class="main-image-container">
+                            {% if project.plans.all %}
+                                <div class="image-counter">
+                                    <span id="current-plan">1</span>/<span id="total-plans">{{ project.get_plan_images|length }}</span>
+                                </div>
+                                <img id="main-plan-image" src="{{ project.get_plan_images.first.image.url }}" alt="План" class="main-image">
+                            {% else %}
+                                <div class="no-image-placeholder">
+                                    <p>Планы не загружены</p>
+                                </div>
+                            {% endif %}
+                        </div>
 
+                        <!-- Миниатюры -->
+                        {% if project.get_plan_images %}
+                            <div class="thumbnails-container plan-thumbnails">
+                                {% for plan in project.plans.all %}
+                                    <div class="thumbnail {% if forloop.first %}active{% endif %}" data-image="{{ plan.image.url }}">
+                                        <img src="{{ plan.image.url }}" alt="План {{ forloop.counter }}" class="thumbnail-image">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="thumbnails-container">
+                                <p>Нет планов для отображения</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </section>
+                <!-- Вставьте это в нужное место шаблона -->
+                <section class="construction-calculator">
+                    <h2>РАСЧЁТ СТОИМОСТИ СТРОИТЕЛЬСТВА</h2>
+
+                    <!-- Выбор технологии -->
+                    <div class="tech-selector">
+                        <p>Выберите технологию строительства:</p>
+                        <div class="tech-buttons">
+                            <button class="tech-btn active" data-tech="frame">Каркас</button>
+                            <button class="tech-btn" data-tech="gasconcrete">Газобетон</button>
+                            <button class="tech-btn" data-tech="brick">Кирпич</button>
+                        </div>
+                    </div>
+
+                    <div class="cost-table">
+                        <!-- Обязательные этапы -->
+                        {% for stage in project.stages.all %}
+                            {% if stage.is_required %}
+                                <div class="stage-row required">
+                                    <div class="stage-number">{{ forloop.counter }}/{{ project.stages.count }}</div>
+                                    <div class="stage-title">{{ stage.title }}</div>
+                                    <div class="stage-description">{{ stage.description }}</div>
+
+                                    <div class="tech-column frame">{{ stage.cost_frame|intcomma }} ₽</div>
+                                    <div class="tech-column gasconcrete">{{ stage.cost_gasconcrete|intcomma }} ₽</div>
+                                    <div class="tech-column brick">{{ stage.cost_brick|intcomma }} ₽</div>
+
+                                    <div class="stage-checkbox">
+                                        <span class="required-check">✓</span> <!-- всегда включено -->
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        <!-- Опциональные этапы -->
+                        {% for stage in project.stages.all %}
+                            {% if not stage.is_required %}
+                                <div class="stage-row optional">
+                                    <div class="stage-number">{{ forloop.counter }}/{{ project.stages.count }}</div>
+                                    <div class="stage-title">{{ stage.title }}</div>
+                                    <div class="stage-description">{{ stage.description }}</div>
+
+                                    <div class="tech-column frame">{{ stage.cost_frame|intcomma }} ₽</div>
+                                    <div class="tech-column gasconcrete">{{ stage.cost_gasconcrete|intcomma }} ₽</div>
+                                    <div class="tech-column brick">{{ stage.cost_brick|intcomma }} ₽</div>
+
+                                    <div class="stage-checkbox">
+                                        <input type="checkbox" class="stage-check" data-stage-id="{{ stage.id }}" data-price-frame="{{ stage.cost_frame }}" data-price-gasconcrete="{{ stage.cost_gasconcrete }}" data-price-brick="{{ stage.cost_brick }}">
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <!-- Итог и кнопки -->
+                    <div class="calculation-result">
+                        <div class="total-price">
+                            Итоговая стоимость: <strong id="total-amount">0 ₽</strong>
+                        </div>
+                        <div class="calc-buttons">
+                            <button id="calculate-btn" class="btn-calculate">Рассчитать</button>
+                            <button id="reset-btn" class="btn-reset">Сбросить</button>
+                        </div>
+                    </div>
+                </section>
                 <!-- Особенности -->
                 <div class="features">
                     <h3>Особенности:</h3>

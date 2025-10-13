@@ -20,26 +20,17 @@
             <button class="filter-btn" data-filter="interiors">ИНТЕРЬЕРЫ</button>
         </div>
 
-        <!-- Сетка проектов -->
-        <div class="projects-grid">
-            {% for project in projects %}
-                <div class="project-card" data-category="all">
-                    <a href="{% url 'projects:detail' project.slug %}" class="project-card-link">
-                        {% if project.main_image %}
-                            <img src="{{ project.main_image.url }}" alt="{{ project.title }}">
-                        {% else %}
-                            <div class="placeholder">Нет изображения</div>
-                        {% endif %}
-                        <div class="project-info">
-                            <h3>{{ project.title }}</h3>
-                            <p>{{ project.area_total }} м² • {{ project.bedrooms }} сп. • {{ project.bathrooms }} с/у</p>
-                        </div>
-                    </a>
-                </div>
-            {% empty %}
-                <p class="no-projects">Пока нет проектов.</p>
-            {% endfor %}
+    {% for project in projects %}
+    <a href="{% url 'project_detail' project.id %}" class="project-card">
+        <div class="card">
+            {% if project.main_image %}
+                <img src="{{ project.main_image.url }}" alt="{{ project.title }}" class="card-image">
+            {% endif %}
+            <h3 class="card-title">{{ project.title }}</h3>
+            <p class="card-price">{{ project.price|floatformat:0 }} ₽</p>
         </div>
-    </div>
+    </a>
+    {% endfor %}
+
 </section>
 {% endblock %}

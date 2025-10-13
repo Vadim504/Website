@@ -4,6 +4,7 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'home/css/about.css' %}">
+    <link rel="stylesheet" href="{% static 'projects/css/project_list.css' %}">
 {% endblock %}
 
 {% block extra_js %}
@@ -29,31 +30,34 @@
 
             <p>За годы работы мы реализовали сотни проектов — от компактных загородных резиденций до масштабных таунхаусных кварталов и эко-посёлков. Наша репутация строится на прозрачности, соблюдении сроков и безупречном качестве. Мы не гонимся за количеством — мы создаём наследие.</p>
 
-            <section class="projects-section">
+           <section class="projects-page">
                 <h2>Наши проекты</h2>
-                <div class="projects-grid">
-                    <a href="{% static 'images/about/project1.jpg' %}" data-fancybox="gallery" data-caption="Загородный дом в стиле модерн">
-                        <div class="project-item">
-                            <img src="{% static 'images/about/project1.jpg' %}" alt="Загородный дом в стиле модерн">
-                            <div class="project-caption">Загородный дом в стиле модерн</div>
+                {% if projects %}
+                    <div class="projects-content">
+                        <div class="projects-grid">
+                            {% for project in projects %}
+                                <a href="{% url 'projects:detail' project.slug %}" class="project-card-link">
+                                    <div class="project-card">
+                                        {% if project.main_image %}
+                                            <img src="{{ project.main_image.url }}" alt="{{ project.title }}">
+                                        {% else %}
+                                            <div class="placeholder">Нет изображения</div>
+                                        {% endif %}
+                                        <div class="card-content">
+                                            <h3>{{ project.title }}</h3>  <!-- лучше h3 внутри карточки -->
+                                            <!-- добавьте цену и specs, если нужно -->
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
                         </div>
-                    </a>
-
-                    <a href="{% static 'images/projects/project2.jpg' %}" data-fancybox="gallery" data-caption="Таунхаусный комплекс">
-                        <div class="project-item">
-                            <img src="{% static 'images/projects/project2.jpg' %}" alt="Таунхаусный комплекс">
-                            <div class="project-caption">Таунхаусный комплекс</div>
-                        </div>
-                    </a>
-
-                    <a href="{% static 'images/projects/project3.jpg' %}" data-fancybox="gallery" data-caption="Эко-резиденция с панорамными окнами">
-                        <div class="project-item">
-                            <img src="{% static 'images/projects/project3.jpg' %}" alt="Эко-резиденция с панорамными окнами">
-                            <div class="project-caption">Эко-резиденция с панорамными окнами</div>
-                        </div>
-                    </a>
-                </div>
+                    </div>
+                {% else %}
+                    <p class="no-projects">Пока нет проектов. Загляните позже!</p>
+                {% endif %}
             </section>
+
+
             <p class="slogan">
                 «Квадрат» — это не просто название. Это символ стабильности, точности и гармонии пропорций. В мире, где всё меняется, мы остаёмся верны одному принципу: строить так, чтобы через поколения говорили — «Это дом от „Квадрата“».
             </p>

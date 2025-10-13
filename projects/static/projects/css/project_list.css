@@ -12,6 +12,14 @@
     color: #2c3e50;
 }
 
+.projects-page h2 {
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 45px;
+    color: #2c3e50;
+}
+
+
 /* Гибкая раскладка: фильтры слева, проекты справа */
 .layout {
     display: flex;
