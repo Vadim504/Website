@@ -89,3 +89,57 @@ main {
     white-space: nowrap;
 }
 
+/* Стили для выпадающего меню */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.dropbtn {
+    color: inherit;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.dropbtn:hover {
+    color: #007bff; /* акцентный цвет при наведении */
+}
+
+/* Выпадающее меню — позиционируем ВНИЗ */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 220px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    border-radius: 6px;
+    top: 100%; /* открывается вниз от кнопки */
+    left: 0;
+    margin-top: 5px; /* небольшой отступ сверху */
+    padding: 8px 0;
+    border: 1px solid #e0e0e0;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+/* Показываем меню при активном классе */
+.dropdown.show .dropdown-content {
+    display: block;
+}

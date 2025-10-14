@@ -8,7 +8,9 @@
     <title>{% block title %}Название сайта{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block extra_css %}{% endblock %}
-    {% block extra_js %}{% endblock %}
+    {% block extra_js %}
+        <script src="{% static 'js/base.js' %}"></script>
+    {% endblock %}
 </head>
 <body>
     <!-- Шапка сайта -->
@@ -37,7 +39,16 @@
                 <ul>
                     <li><a href="{% url 'home' %}">Главная</a></li>
                     <li><a href="{% url 'about' %}">О нас</a></li>
-                    <li><a href="{% url 'services:services' %}">Услуги</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn">Услуги</a>
+                        <div class="dropdown-content">
+                            <a href="{% url 'services:service_detail' slug='interior_design' %}">Интерьерный дизайн</a>
+                            <a href="{% url 'services:service_detail' slug='landscape_design' %}">Ландшафтный дизайн</a>
+                            <a href="{% url 'services:service_detail' slug='rent' %}">Аренда строительной техники</a>
+                            <a href="{% url 'services:service_detail' slug='geodetic_survey' %}">Геодезическая съёмка</a>
+                            <a href="{% url 'services:service_detail' slug='support' %}">Бурение водяной скважины</a>
+                            <a href="{% url 'services:service_detail' slug='support' %}">Прокладка инженерных коммуникаций</a>
+                        </li>
                     <li><a href="{% url 'projects:list' %}">Проекты</a></li>
                     <li><a href="{% url 'contacts' %}">Контакты</a></li>
                 </ul>
