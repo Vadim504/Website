@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'services/css/equipment_detail.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'services/js/equipment_detail.js' %}"></script>
+{% endblock %}
+
+{% block title %}{{ equipment.name }}{% endblock %}
+
+{% block content %}
+<div class="equipment-detail-page">
+    <h1>{{ equipment.name }}</h1>
+
+    <!-- Галерея изображений -->
+    <section class="equipment-gallery">
+        <h2>Фотографии техники</h2>
+
+        <div class="gallery-wrapper">
+            <!-- Основное изображение -->
+            <div class="main-image-container">
+                {% if equipment.images.all %}
+                    <div class="image-counter">
+                        <span id="current-image">1</span>/<span id="total-images">{{ equipment.images.all|length }}</span>
+                    </div>
+                    <img id="main-image" src="{{ equipment.images.first.image.url }}" alt="{{ equipment.name }}" class="main-image">
+                {% else %}
+                    <div class="no-image-placeholder">
+                        <p>Нет фотографий</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Миниатюры -->
+            {% if equipment.images.all %}
+                <div class="thumbnails-container">
+                    {% for img in equipment.images.all %}
+                        <div class="thumbnail {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}" data-image="{{ img.image.url }}">
+                            <img src="{{ img.image.url }}" alt="Фото {{ forloop.counter }}" class="thumbnail-image">
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Основные характеристики -->
+    <section class="specs-main">
+        <h2>Основные характеристики</h2>
+        <p><strong>Тип:</strong> {{ equipment.equipment_type.name }}</p>
+        <p><strong>Грузоподъёмность/Мощность:</strong> 
+           {{ equipment.capacity }} 
+           {% if 'бульдозер' in equipment.equipment_type.name|lower or 'экскаватор' in equipment.equipment_type.name|lower %}л.с.{% else %}т{% endif %}
+        </p>
+        <p><strong>Цена за час:</strong> {{ equipment.hourly_rate }} ₽</p>
+    </section>
+
+    <!-- Полное описание -->
+    {% if equipment.description %}
+    <section class="description card-section">
+        <h2>Описание</h2>
+        <p>{{ equipment.description }}</p>
+    </section>
+    {% endif %}
+
+    <!-- Дополнительные характеристики (из JSON) -->
+    {% if equipment.specs %}
+    <section class="specs-extended card-section">
+        <h2>Технические характеристики</h2>
+        <ul>
+            {% for key, value in equipment.specs.items %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    <a href="{% url 'services:rent' %}" class="btn-back">← Назад к технике</a>
+</div>
+{% endblock %}

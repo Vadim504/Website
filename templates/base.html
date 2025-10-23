@@ -17,21 +17,7 @@
     <header class="header">
         <div class="logo">
             <a href="{% url 'home' %}">
-                <img 
-                    src="{% static 'images/logo.png' %}" 
-                    alt="Квадрат" 
-                    class="logo-img-small"
-                    style="
-                        width: 60px;
-                        height: auto;
-                        border: none;
-                        outline: none;
-                        box-shadow: none;
-                        margin-right: 10px;
-                        display: inline-block;
-                        vertical-align: middle;
-                    "
-                >
+                <img src="{% static 'images/logo.png' %}" alt="Квадрат" class="logo-img-small">
             </a>
         </div>
         <div class="header-right">
@@ -42,12 +28,13 @@
                     <li class="dropdown">
                         <a href="javascript:void(0)" class="dropbtn">Услуги</a>
                         <div class="dropdown-content">
-                            <a href="{% url 'services:service_detail' slug='interior_design' %}">Интерьерный дизайн</a>
-                            <a href="{% url 'services:service_detail' slug='landscape_design' %}">Ландшафтный дизайн</a>
-                            <a href="{% url 'services:service_detail' slug='rent' %}">Аренда строительной техники</a>
-                            <a href="{% url 'services:service_detail' slug='geodetic_survey' %}">Геодезическая съёмка</a>
-                            <a href="{% url 'services:service_detail' slug='support' %}">Бурение водяной скважины</a>
-                            <a href="{% url 'services:service_detail' slug='support' %}">Прокладка инженерных коммуникаций</a>
+                            <a href="{% url 'services:interior_design_list' %}">Интерьерный дизайн</a>
+                            <a href="{% url 'services:landscape_design' %}">Ландшафтный дизайн</a>
+                            <a href="{% url 'services:rent' %}">Аренда строительной техники</a>
+                            <a href="{% url 'services:geodetic_survey' %}">Геодезическая съёмка</a>
+                            <a href="{% url 'services:well_drilling' %}">Бурение водяной скважины</a>
+                            <a href="{% url 'services:utilities_installation' %}">Прокладка инженерных коммуникаций</a>
+                            </div>
                         </li>
                     <li><a href="{% url 'projects:list' %}">Проекты</a></li>
                     <li><a href="{% url 'contacts' %}">Контакты</a></li>

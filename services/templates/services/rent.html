@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'services/css/rent.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'services/js/rent.js' %}"></script>
+{% endblock %}
+
+{% block title %}Аренда строительной техники{% endblock %}
+
+{% block content %}
+<div class="rent-page">
+    <h1>Аренда строительной техники</h1>
+
+    <div class="rent-layout">
+        <!-- Боковая панель с фильтрами -->
+        <aside class="filters-sidebar">
+            <h3>Тип техники</h3>
+            <div class="filter-group">
+                {% for type in types %}
+                <label class="filter-option">
+                    <input type="checkbox" name="type" value="{{ type.id }}" class="filter-checkbox" data-type="{{ type.id }}">
+                    {{ type.name }}
+                </label>
+                {% empty %}
+                <p>Типы не заданы</p>
+                {% endfor %}
+            </div>
+
+            <h3>Макс. цена (до 5000 ₽/ч)</h3>
+            <input type="range" min="0" max="5000" value="5000" class="filter-slider" id="price-filter">
+            <span id="price-value">5000 ₽</span>
+
+            <h3>Мин. мощность (от 200 л.с.)</h3>
+            <input type="range" min="0" max="500" value="200" class="filter-slider" id="capacity-filter">
+            <span id="capacity-value">200 л.с.</span>
+
+            <div class="filter-buttons">
+                <button id="apply-filters" class="btn-apply">Применить</button>
+                <button id="reset-filters" class="btn-reset">Сбросить</button>
+            </div>
+        </aside>
+
+        <!-- Сетка карточек техники -->
+        <main class="cards-container" id="cards-container">
+            {% for eq in equipments %}
+            <a href="{% url 'services:equipment_detail' pk=eq.pk %}" 
+                class="equipment-card-link"
+                data-type="{{ eq.equipment_type.id }}"
+                data-price="{{ eq.hourly_rate }}"
+                data-capacity="{{ eq.capacity }}">
+                    <div class="card-image">
+                        {% if eq.images.all %}
+                            <img src="{{ eq.images.first.image.url }}" alt="{{ eq.name }}">
+                        {% else %}
+                            <div class="placeholder-image">Нет фото</div>
+                        {% endif %}
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">{{ eq.name }}</h3>
+                        <div class="card-meta">
+                            <span class="price">{{ eq.hourly_rate }} ₽/ч</span>
+                            <span class="capacity">{{ eq.capacity }} л.с.</span>
+                        </div>
+                    </div>
+                </a>
+            {% empty %}
+            <p class="no-results">Техника ещё не добавлена.</p>
+            {% endfor %}
+        </main>
+    </div>
+
+    <div id="no-results-message" style="display:none; text-align:center; padding:40px; color:#666;">
+        Не найдено техники по заданным критериям.
+    </div>
+</div>
+{% endblock %}
