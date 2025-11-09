@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("Project detail JS загружен!");
-
-    // === ГАЛЕРЕЯ ИЗОБРАЖЕНИЙ ===
-=======
 // document.addEventListener("DOMContentLoaded", function() { // Старый способ
 document.addEventListener("DOMContentLoaded", () => { // Современный способ
     console.log("✅ Project detail JS загружен");
@@ -44,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => { // Современный 
     // ==================================================
     // === 1. ГАЛЕРЕЯ ИЗОБРАЖЕНИЙ (ФОТО ПРОЕКТА) ===
     // ==================================================
->>>>>>> eb5d939 (make_changes_2)
     const mainImage = document.getElementById('main-image');
     const galleryThumbnails = document.querySelectorAll('.thumbnail'); // только для галереи
     const currentImageSpan = document.getElementById('current-image');
@@ -211,40 +204,26 @@ document.addEventListener("DOMContentLoaded", () => { // Современный 
             planThumbnails.forEach((thumb, i) => {
                 thumb.classList.toggle('active', i === index);
             });
-<<<<<<< HEAD
-
-=======
             
             const currentPlanSpan = document.getElementById('current-plan');
->>>>>>> eb5d939 (make_changes_2)
             if (currentPlanSpan) {
                 currentPlanSpan.textContent = index + 1;
             }
             planIndex = index;
         }
 
-<<<<<<< HEAD
-        planThumbnails.forEach((thumbnail, index) => {
-            thumbnail.addEventListener('click', function(e) {
-=======
         planThumbnails.forEach((thumb, index) => {
             if (!thumb) return;
             console.log('DEBUG → plan thumbnail', thumb, index);
             thumb.addEventListener('click', e => {
->>>>>>> eb5d939 (make_changes_2)
                 e.preventDefault();
                 planIndex = index;
                 updateMainPlanImage(planIndex);
             });
         });
 
-<<<<<<< HEAD
-        // Навигация клавиатурой
-        document.addEventListener('keydown', function(e) {
-=======
         // Клавиатурная навигация
         document.addEventListener('keydown', e => {
->>>>>>> eb5d939 (make_changes_2)
             if (e.key === 'ArrowLeft' && planIndex > 0) {
                 planIndex--;
                 updateMainPlanImage(planIndex);
@@ -256,91 +235,6 @@ document.addEventListener("DOMContentLoaded", () => { // Современный 
 
         // Инициализация
         updateMainPlanImage(0);
-<<<<<<< HEAD
-
-        // --- Модальное окно для планов ---
-        const lightboxPlan = document.getElementById('lightbox'); // используем тот же lightbox
-        const lightboxImgPlan = document.getElementById('lightbox-main-image');
-        const lightboxCounterPlan = document.querySelector('.lightbox-counter');
-        const closeBtnPlan = document.querySelector('.lightbox-close');
-        const prevBtnPlan = document.querySelector('.lightbox-prev');
-        const nextBtnPlan = document.querySelector('.lightbox-next');
-        const lightboxThumbnailsPlan = document.querySelectorAll('.lightbox-thumbnail');
-
-        function openLightboxPlan(index) {
-            planIndex = index;
-            lightboxImgPlan.src = planImages[planIndex];
-            lightboxCounterPlan.textContent = `${planIndex + 1} / ${planImages.length}`;
-            lightboxPlan.style.display = 'flex';
-
-            lightboxThumbnailsPlan.forEach((thumb, i) => {
-                thumb.classList.toggle('active', i === planIndex);
-            });
-        }
-
-        function closeLightboxPlan() {
-            lightboxPlan.style.display = 'none';
-        }
-
-        lightboxPlan.addEventListener('click', function(e) {
-            if (e.target === lightboxPlan) closeLightboxPlan();
-        });
-
-        closeBtnPlan.addEventListener('click', closeLightboxPlan);
-
-        prevBtnPlan.addEventListener('click', function() {
-            if (planIndex > 0) {
-                planIndex--;
-                lightboxImgPlan.src = planImages[planIndex];
-                lightboxCounterPlan.textContent = `${planIndex + 1} / ${planImages.length}`;
-                lightboxThumbnailsPlan.forEach((thumb, i) => {
-                    thumb.classList.toggle('active', i === planIndex);
-                });
-            }
-        });
-
-        nextBtnPlan.addEventListener('click', function() {
-            if (planIndex < planImages.length - 1) {
-                planIndex++;
-                lightboxImgPlan.src = planImages[planIndex];
-                lightboxCounterPlan.textContent = `${planIndex + 1} / ${planImages.length}`;
-                lightboxThumbnailsPlan.forEach((thumb, i) => {
-                    thumb.classList.toggle('active', i === planIndex);
-                });
-            }
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeLightboxPlan();
-        });
-
-        mainPlanImage.addEventListener('click', function() {
-            openLightboxPlan(planIndex);
-        });
-
-        planThumbnails.forEach((thumbnail, index) => {
-            thumbnail.addEventListener('click', function() {
-                openLightboxPlan(index);
-            });
-        });
-
-        lightboxThumbnailsPlan.forEach((thumbnail, index) => {
-            thumbnail.addEventListener('click', function() {
-                planIndex = index;
-                lightboxImgPlan.src = planImages[planIndex];
-                lightboxCounterPlan.textContent = `${planIndex + 1} / ${planImages.length}`;
-                lightboxThumbnailsPlan.forEach((thumb, i) => {
-                    thumb.classList.toggle('active', i === planIndex);
-                });
-            });
-        });
-    }
-    // === КАЛЬКУЛЯТОР СТОИМОСТИ ===
-    const techButtons = document.querySelectorAll('.tech-btn');
-    const techColumns = document.querySelectorAll('.tech-column');
-    const stageChecks = document.querySelectorAll('.stage-check');
-    const totalAmount = document.getElementById('total-amount');
-=======
     }
 
     // ==================================================
@@ -352,7 +246,6 @@ document.addEventListener("DOMContentLoaded", () => { // Современный 
         gasconcrete: 1.3,
         brick: 1.7
     };
->>>>>>> eb5d939 (make_changes_2)
 
     let currentTech = 'frame';
     const stageChecks = document.querySelectorAll('input.stage-check');
@@ -368,60 +261,17 @@ document.addEventListener("DOMContentLoaded", () => { // Современный 
         });
     });
 
-<<<<<<< HEAD
-    techButtons.forEach(button => {
-=======
     // Переключение технологии
     document.querySelectorAll('.tech-btn').forEach(button => {
->>>>>>> eb5d939 (make_changes_2)
         button.addEventListener('click', function () {
             document.querySelectorAll('.tech-btn').forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
             currentTech = this.dataset.tech;
-<<<<<<< HEAD
-
-            techColumns.forEach(col => {
-                col.classList.toggle('active-tech', col.classList.contains(currentTech));
-            });
-
-=======
             console.log("🔍 DEBUG: Технология изменена на:", currentTech);
->>>>>>> eb5d939 (make_changes_2)
             updateTotal();
         });
     });
 
-<<<<<<< HEAD
-    function updateTotal() {
-        let total = 0;
-
-        document.querySelectorAll('.stage-row.required').forEach(row => {
-            const priceCell = row.querySelector(`.tech-column.${currentTech}`);
-            const priceText = priceCell.textContent.trim().replace(/\s/g, '').replace('₽', '');
-            const price = parseFloat(priceText) || 0;
-            total += price;
-        });
-
-        stageChecks.forEach(check => {
-            if (check.checked) {
-                const price = parseFloat(check.dataset[`price${currentTech.charAt(0).toUpperCase() + currentTech.slice(1)}`]);
-                total += price || 0;
-            }
-        });
-
-        totalAmount.textContent = new Intl.NumberFormat('ru-RU').format(total) + ' ₽';
-    }
-
-    stageChecks.forEach(check => {
-        check.addEventListener('change', updateTotal);
-    });
-
-    techColumns.forEach(col => {
-        col.classList.toggle('active-tech', col.classList.contains(currentTech));
-    });
-    updateTotal();
-});
-=======
     // Расчёт итоговой суммы
     function updateTotal() {
         const techCoeff = TECH_COEFFICIENTS[currentTech] || 1.0;
@@ -543,4 +393,3 @@ document.addEventListener("DOMContentLoaded", () => { // Современный 
     // Но в рамках одного файла это не нужно.
 });
 // Замыкание (function() { ... })(); больше не используется.
->>>>>>> eb5d939 (make_changes_2)

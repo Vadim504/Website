@@ -118,9 +118,6 @@ class ProjectPlan(models.Model):
         ordering = ['order']
 
     def __str__(self):
-<<<<<<< HEAD
-        return f"{self.project.title} — {self.title}"
-=======
         return f"{self.project.title} — {self.title}"
     
 # models.py
@@ -149,4 +146,3 @@ class Stage(models.Model):
     class Meta:
         verbose_name = "Этап"
         verbose_name_plural = "Этапы"
->>>>>>> eb5d939 (make_changes_2)
