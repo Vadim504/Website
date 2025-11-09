@@ -10,7 +10,11 @@
 {% endblock %}
 
 {% block content %}
+<<<<<<< HEAD
 <div class="project-detail-page">
+=======
+<div class="project-detail-page" data-area="{{ project.area_total }}" data-base-price="{{ base_price_with_required }}">
+>>>>>>> eb5d939 (make_changes_2)
     <!-- Заголовок -->
     <div class="header-row">
         <h1 class="project-title">{{ project.title }}</h1>
@@ -20,11 +24,16 @@
     <section class="image-gallery-section">
         <div class="image-gallery">
             <div class="main-image-container">
-                {% if project.images.all %}
+                {% with gallery_images=project.get_gallery_images %}
+                {% if gallery_images %}
                     <div class="image-counter">
-                        <span id="current-image">1</span>/<span id="total-images">{{ project.images.all|length }}</span>
+                        <span id="current-image">1</span>/<span id="total-images">{{ gallery_images.count }}</span>
                     </div>
-                    <img id="main-image" src="{{ project.images.first.image.url }}" alt="Фото проекта" class="main-image">
+                    {% for img in gallery_images %}
+                        {% if forloop.first %}
+                        <img id="main-image" src="{{ img.image.url }}" alt="Фото проекта" class="main-image">
+                        {% endif %}
+                    {% endfor %}
                 {% elif project.main_image %}
                     <div class="image-counter">
                         <span id="current-image">1</span>/<span id="total-images">1</span>
@@ -35,8 +44,10 @@
                         <p>Изображение не загружено</p>
                     </div>
                 {% endif %}
+                {% endwith %}
             </div>
 
+<<<<<<< HEAD
             {% if project.images.all or project.main_image %}
                 <div class="thumbnails-container">
                     {% for img in project.images.all %}
@@ -49,13 +60,38 @@
                         </div>
                     {% endfor %}
                 </div>
+=======
+            {% with gallery_images=project.get_gallery_images %}
+            {% if gallery_images.exists %}
+            <div class="thumbnails-container">
+                {% for img in gallery_images %}
+                <div class="thumbnail {% if forloop.first %}active{% endif %}" data-image="{{ img.image.url }}">
+                    <img src="{{ img.image.url }}" alt="Фото {{ forloop.counter }}" class="thumbnail-image">
+                </div>
+                {% endfor %}
+            </div>
+            {% elif project.main_image %}
+            <div class="thumbnails-container">
+                <div class="thumbnail active" data-image="{{ project.main_image.url }}">
+                    <img src="{{ project.main_image.url }}" alt="Главное фото" class="thumbnail-image">
+                </div>
+            </div>
+>>>>>>> eb5d939 (make_changes_2)
             {% endif %}
+            {% endwith %}
         </div>
 
+<<<<<<< HEAD
         <div class="price-block">
             <span class="price-label">Цена:</span>
             <span class="price">{{ project.price|floatformat:0 }} ₽</span>
+=======
+        <div class="project-base-price">
+            От <strong id="base-price">{{ base_price_with_required|intcomma }} ₽</strong>
+>>>>>>> eb5d939 (make_changes_2)
         </div>
+
+        
     </section>
 
     <!-- Основной контент (узкий, читаемый) -->
@@ -176,6 +212,22 @@
                         {% endif %}
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+                <div class="stage-checkbox">
+                    {% if stage.is_required %}
+                        <span class="required-check">✓</span>
+                    {% else %}
+                        <input type="checkbox"  id="stage-{{ stage.id }}" class="stage-check"
+                        data-cost-per-m2="{{ stage.cost_per_m2 }}">
+                    <!-- Или, если stage.id нет, можно использовать forloop.counter -->
+                    <!-- <input type="checkbox"  id="stage-{{ forloop.counter }}" class="stage-check"
+                        data-cost-per-m2="{{ stage.cost_per_m2 }}"> -->
+                        <label for="stage-{{ stage.id }}"></label> <!-- Добавляем label для удобства клика -->
+                    {% endif %}
+                </div>
+            </div>
+>>>>>>> eb5d939 (make_changes_2)
             {% endfor %}
         </div>
 

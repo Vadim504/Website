@@ -334,6 +334,7 @@
 }
 
 .stage-checkbox {
+<<<<<<< HEAD
     display: flex;
     align-items: center;
     justify-content: center;
@@ -344,6 +345,46 @@
 .required-check {
     color: #27ae60;
     font-weight: bold;
+=======
+    width: 38px;
+    text-align: center;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.stage-checkbox input[type="checkbox"].stage-check {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin: 0;
+    opacity: 1;
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+    -webkit-appearance: checkbox;
+    -moz-appearance: checkbox;
+    appearance: checkbox;
+}
+
+.stage-checkbox label {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 5;
+    /* Label не должен блокировать клики по чекбоксу, но должен реагировать на клики */
+}
+
+.required-check {
+    font-size: 1.15em;
+    color: #27ae60;
+>>>>>>> eb5d939 (make_changes_2)
 }
 
 .calculation-result {

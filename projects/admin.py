@@ -1,5 +1,17 @@
 from django.contrib import admin
 from .models import HouseProject, Material, Feature, ProjectImage, ProjectPlan
+from .models import Stage
+
+@admin.register(Stage)
+class StageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'is_required', 'cost_per_m2')
+    list_filter = ('is_required',)
+    search_fields = ('title', 'description')
+    ordering = ('title',)
+
+    # Подключаем кастомный JS
+    class Media:
+        js = ('projects/js/admin-stage.js',)
 
 class ProjectImageInline(admin.StackedInline):
     model = ProjectImage

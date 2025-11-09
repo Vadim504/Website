@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const floorsInput = document.getElementById('floors-input');
 
     floorButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
             // Убираем активный класс со всех кнопок
             floorButtons.forEach(btn => btn.classList.remove('active'));
             // Добавляем активный класс к нажатой кнопке
@@ -22,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const bedroomsInput = document.getElementById('bedrooms-input');
 
     roomButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
             // Убираем активный класс со всех кнопок
             roomButtons.forEach(btn => btn.classList.remove('active'));
             // Добавляем активный класс к нажатой кнопке
@@ -37,7 +39,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const bathroomsInput = document.getElementById('bathrooms-input');
 
     bathroomButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
             // Убираем активный класс со всех кнопок
             bathroomButtons.forEach(btn => btn.classList.remove('active'));
             // Добавляем активный класс к нажатой кнопке

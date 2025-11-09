@@ -118,4 +118,35 @@ class ProjectPlan(models.Model):
         ordering = ['order']
 
     def __str__(self):
+<<<<<<< HEAD
         return f"{self.project.title} — {self.title}"
+=======
+        return f"{self.project.title} — {self.title}"
+    
+# models.py
+
+# models.py
+
+# models.py
+
+class Stage(models.Model):
+    title = models.CharField("Название этапа", max_length=255)
+    description = models.TextField("Описание")
+    is_required = models.BooleanField("Обязательный", default=True)
+
+    # Только это поле для опциональных этапов
+    cost_per_m2 = models.DecimalField(
+        "Цена за м²",
+        max_digits=8,
+        decimal_places=2,
+        default=0,
+        help_text="Цена за м² для необязательных этапов"
+    )
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Этап"
+        verbose_name_plural = "Этапы"
+>>>>>>> eb5d939 (make_changes_2)
