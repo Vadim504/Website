@@ -1,0 +1,110 @@
+<!-- services/templates/services/landscape_design_detail.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }} | Ландшафтный дизайн{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'services/css/landscape_design_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="landscape-design-detail-page">
+    <div class="container">
+        <!-- Заголовок и описание -->
+        <div class="intro mb-4">
+            <h1 class="display-4 fw-bold">{{ project.title }}</h1>
+            {% if project.location %}
+                <p class="text-muted"><strong>Местоположение:</strong> {{ project.location }}</p>
+            {% endif %}
+            <p class="lead">{{ project.description }}</p>
+        </div>
+
+        <!-- Главное изображение -->
+        <div class="main-image-container mb-4">
+            {% if project.main_image %}
+                <img src="{{ project.main_image.url }}" alt="{{ project.title }}" class="img-fluid rounded shadow-sm" id="main-image">
+            {% else %}
+                <div class="placeholder-image bg-light d-flex align-items-center justify-content-center" style="height: 400px; border-radius: 12px;">
+                    <span class="text-muted">Главное изображение отсутствует</span>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Галерея по секциям -->
+        <div class="project-sections-gallery mt-5">
+            <h3 class="mb-4">Фото по секциям проекта</h3>
+
+            <!-- services/templates/services/landscape_design_detail.html -->
+
+                    {% for section in project.sections.all %}
+                        <div class="section-gallery mb-4">
+                            <h4 class="section-title">{{ section.title }}</h4>
+                            {% if section.description %}
+                                <p class="section-description">{{ section.description }}</p>
+                            {% endif %}
+
+                            <div class="gallery-row">
+                                <!-- Большое изображение СПЕРВА -->
+                                <div class="section-main-image-container mb-3" style="flex: 1;">
+                                    <img id="section-main-image-{{ section.id }}"
+                                        src="{% if section.images.first %}{{ section.images.first.image.url }}{% else %}{% static 'services/images/placeholder.jpg' %}{% endif %}"
+                                        alt="{{ section.title }}"
+                                        class="img-fluid rounded shadow-sm main-img"
+                                        style="height: 400px; object-fit: cover; width: 100%;">
+                                </div>
+                                <!-- Миниатюры СПРАВА -->
+                                <div class="sidebar-thumbnails">
+                                    {% for img in section.images.all %}
+                                        <div class="thumbnail-item"
+                                            data-src="{{ img.image.url }}"
+                                            data-section-id="{{ section.id }}">
+                                            <img src="{{ img.image.url }}"
+                                                alt="{{ img.caption|default:section.title }}"
+                                                class="img-fluid rounded shadow-sm">
+                                            {% if img.caption %}
+                                                <div class="caption mt-2">{{ img.caption }}</div>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                    {% empty %}
+                        <div class="text-center p-4 bg-light rounded">
+                            <p class="mb-0 text-muted">Нет секций для этого проекта.</p>
+                        </div>
+            {% endfor %}
+        </div>
+
+        <!-- Блок с информацией о проекте -->
+        <div class="project-info p-4 bg-white rounded shadow-sm mb-5">
+            <h3>Детали проекта</h3>
+            <ul class="list-unstyled">
+                {% if project.area_total %}
+                    <li><strong>Площадь участка:</strong> {{ project.area_total }} м²</li>
+                {% endif %}
+                {% if project.duration %}
+                    <li><strong>Срок выполнения:</strong> {{ project.duration }} месяцев</li>
+                {% endif %}
+                {% if project.price %}
+                    <li><strong>Стоимость:</strong> {{ project.price }} ₽</li>
+                {% endif %}
+                {% if project.style %}
+                    <li><strong>Стиль:</strong> {{ project.style }}</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <!-- Кнопка "Связаться с нами" -->
+        <div class="contact-cta mb-5">
+            <a href="{% url 'contacts' %}" class="btn btn-primary btn-lg px-5">
+                Связаться с нами
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'services/js/landscape_design_gallery.js' %}"></script>
+{% endblock %}

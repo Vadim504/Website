@@ -1,6 +1,16 @@
 from django.contrib import admin
-from .models import HouseProject, Material, Feature, ProjectImage, ProjectPlan
+from .models import HouseProject, Material, Feature, ProjectImage, ProjectPlan, ConstructionStage
 
+class ConstructionStageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'project', 'order', 'is_required_display',  'cost_per_sqm')
+    list_filter = ('project', 'is_required')
+    search_fields = ('title', 'project__title')
+
+    def is_required_display(self, obj):
+        return 'Да' if obj.is_required else 'Нет'
+    is_required_display.short_description = 'Обязательный'
+
+admin.site.register(ConstructionStage, ConstructionStageAdmin)
 class ProjectImageInline(admin.StackedInline):
     model = ProjectImage
     extra = 3

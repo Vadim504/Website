@@ -11,9 +11,7 @@ def project_detail(request, slug):
     for stage in project.stages.all():
         stages_with_costs.append({
             'stage': stage,
-            'cost_frame_per_sq': stage.cost_frame / project.area_total if project.area_total else 0,
-            'cost_gasconcrete_per_sq': stage.cost_gasconcrete / project.area_total if project.area_total else 0,
-            'cost_brick_per_sq': stage.cost_brick / project.area_total if project.area_total else 0,
+            'cost_per_sqm': stage.cost_per_sqm,
         })
 
     return render(request, 'projects/project_detail.html', {

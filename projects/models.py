@@ -83,6 +83,7 @@ class ProjectImage(models.Model):
         return f"{self.project.title} - {self.image.name}"
     
 
+# project/models.py
 class ConstructionStage(models.Model):
     project = models.ForeignKey(HouseProject, on_delete=models.CASCADE, related_name='stages')
     order = models.PositiveIntegerField(verbose_name="Порядок", default=1)
@@ -90,15 +91,15 @@ class ConstructionStage(models.Model):
     description = models.TextField(verbose_name="Описание")
 
     # Стоимость по технологиям
-    cost_frame = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Каркас", default=0)
-    cost_gasconcrete = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Газобетон", default=0)
-    cost_brick = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Кирпич", default=0)
+    cost_per_sqm = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Цена за 1 м² (₽)", default=0)
+
+    # Добавляем поле is_required
+    is_required = models.BooleanField(default=False, verbose_name="Обязательный этап")
 
     class Meta:
         ordering = ['order']
         verbose_name = "Этап строительства"
         verbose_name_plural = "Этапы строительства"
-
 
 class ProjectPlan(models.Model):
     project = models.ForeignKey(
@@ -119,3 +120,5 @@ class ProjectPlan(models.Model):
 
     def __str__(self):
         return f"{self.project.title} — {self.title}"
+    
+

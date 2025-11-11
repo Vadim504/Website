@@ -101,25 +101,26 @@
 
 /* Кнопка "Связаться" */
 .contact-cta {
-    text-align: center;
+    text-align: left;
     margin: 40px 0;
 }
 
 .btn-contact {
     display: inline-block;
     padding: 12px 32px;
-    background: #3498db;
-    color: white;
+    background: #e74c3c; /* Красный фон */
+    color: white; /* Белый текст */
     text-decoration: none;
     border-radius: 6px;
     font-weight: bold;
     font-size: 1.1rem;
-    transition: background 0.2s;
+    transition: all 0.2s ease;
 }
 
 .btn-contact:hover {
-    background: #2980b9;
-    transform: translateY(-2px);
+    background: #c0392b; /* Темнее при наведении */
+    transform: translateY(-2px) scale(1.02); /* Небольшое увеличение и поднятие */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 /* Адаптивность */

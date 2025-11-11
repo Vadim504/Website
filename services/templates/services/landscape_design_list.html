@@ -1,0 +1,58 @@
+<!-- services/templates/services/landscape_design_list.html -->
+{% extends 'base.html' %}
+{% load static %} <!-- Подключаем статику -->
+
+{% block title %}Ландшафтный дизайн{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'services/css/landscape_design_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="landscape-design-page">
+    <h1>Ландшафтный дизайн</h1>
+
+    <!-- Вступление -->
+    <div class="intro">
+        <p class="lead">
+            Мы создаем гармоничные ландшафты, которые превращают ваш участок в живое произведение искусства.
+            От замысла до реализации — каждый элемент продуман до мелочей.
+        </p>
+        <p>
+            Уютные зоны отдыха, цветники, альпийские горки, освещение, водоёмы — всё это мы воплотим в жизнь,
+            учитывая рельеф, почву и ваши пожелания. Ваш сад станет отражением вашего вкуса и местом, где хочется проводить время.
+        </p>
+    </div>
+
+    <!-- Примеры работ -->
+    <div class="projects-gallery">
+        <h2>Наши проекты</h2>
+
+        {% if projects %}
+            <div class="gallery-grid">
+                {% for project in projects %}
+                    <a href="{% url 'services:landscape_design' project.pk %}" class="gallery-item">
+                        {% if project.main_image %}
+                            <img src="{{ project.main_image.url }}" alt="{{ project.title }}">
+                        {% else %}
+                            <div class="placeholder">Изображение отсутствует</div>
+                        {% endif %}
+                        <div class="gallery-item-overlay">
+                            <h3>{{ project.title }}</h3>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-projects">Проектов пока нет.</p>
+        {% endif %}
+    </div>
+
+    <!-- Кнопка "Связаться с нами" -->
+    <div class="contact-cta">
+        <a href="{% url 'contacts' %}" class="btn-contact">
+            Связаться с нами
+        </a>
+    </div>
+</div>
+{% endblock %}

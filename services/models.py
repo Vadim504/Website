@@ -74,16 +74,28 @@ class EquipmentImage(models.Model):
 
 
 class Project(models.Model):
+    SERVICE_CHOICES = [
+        ('interior', 'Интерьерный дизайн'),
+        ('landscape', 'Ландшафтный дизайн'),
+    ]
+
+    # Убираем дубли name и description
     title = models.CharField('Название проекта', max_length=200)
     description = models.TextField('Описание')
-    
-    # Эти поля могут быть пустыми
     area_total = models.DecimalField('Общая площадь', max_digits=6, decimal_places=2, blank=True, null=True)
     location = models.CharField('Город', max_length=100, blank=True)
     duration = models.IntegerField('Срок выполнения (месяцы)', blank=True, null=True)
     price = models.DecimalField('Цена', max_digits=10, decimal_places=0, blank=True, null=True)
     style = models.CharField('Стиль', max_length=100, blank=True)
-    
+
+    # Новое поле для типа услуги
+    service_type = models.CharField(
+        "Тип услуги",
+        max_length=20,
+        choices=SERVICE_CHOICES,
+        default='interior'
+    )
+
     main_image = models.ImageField('Главное изображение', upload_to='projects/', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -94,6 +106,26 @@ class Project(models.Model):
         verbose_name = 'Проект'
         verbose_name_plural = 'Проекты'
 
+
+# НОВАЯ МОДЕЛЬ: Изображения проекта
+class ProjectImage(models.Model):
+    project = models.ForeignKey(
+        Project,
+        related_name='images',  # 👈 Это позволяет писать project.images.all()
+        on_delete=models.CASCADE,
+        verbose_name="Проект"
+    )
+    image = models.ImageField("Изображение", upload_to='projects/')
+    caption = models.CharField("Подпись", max_length=200, blank=True)
+    order = models.PositiveIntegerField('Порядок', default=0)
+
+    def __str__(self):
+        return f"Изображение {self.order} для {self.project.title}"
+
+    class Meta:
+        verbose_name = 'Изображение проекта'
+        verbose_name_plural = 'Изображения проектов'
+        ordering = ['order']
 
 class ProjectSection(models.Model):
     project = models.ForeignKey(Project, related_name='sections', on_delete=models.CASCADE)

@@ -61,7 +61,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'university_db',           # Имя базы данных
         'USER': 'root',                  # Имя пользователя
-        'PASSWORD': 'Moriarti25_1@',        # Пароль MySQL
+        'PASSWORD': 'root123',        # Пароль MySQL
         'HOST': 'localhost',             # Хост
         'PORT': '3306',                  # Порт MySQL
         'OPTIONS': {
