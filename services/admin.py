@@ -10,6 +10,24 @@ from .models import (
     SectionImage
 )
 
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('title', 'service_type', 'location', 'area_total', 'price', 'created_at')  # Добавлен service_type
+    list_filter = ('location', 'style', 'service_type', 'created_at')  # Добавлен service_type
+    search_fields = ('title', 'description', 'location')
+    fieldsets = (
+        ('Основное', {
+            'fields': ('title', 'description', 'style', 'service_type')  # Добавлен service_type
+        }),
+        ('Детали проекта', {
+            'fields': ('area_total', 'location', 'duration', 'price'),
+            'classes': ('collapse',)
+        }),
+        ('Изображения', {
+            'fields': ('main_image',),
+            'classes': ('collapse',)
+        }),
+    )
 # =============== УСЛУГИ ===============
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
@@ -69,28 +87,6 @@ class ProjectSectionInline(admin.TabularInline):
     extra = 1
     fields = ('title', 'description', 'order')
     show_change_link = True  # кнопка "Изменить" для редактирования секции отдельно
-
-
-# =============== ПРОЕКТЫ ===============
-@admin.register(Project)
-class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'location', 'area_total', 'price', 'created_at')
-    list_filter = ('location', 'style', 'created_at')
-    search_fields = ('title', 'description', 'location')
-    inlines = [ProjectSectionInline]
-    fieldsets = (
-        ('Основное', {
-            'fields': ('title', 'description', 'style')
-        }),
-        ('Детали проекта', {
-            'fields': ('area_total', 'location', 'duration', 'price'),
-            'classes': ('collapse',)
-        }),
-        ('Изображения', {
-            'fields': ('main_image',),
-            'classes': ('collapse',)
-        }),
-    )
 
 
 # =============== СЕКЦИИ ПРОЕКТОВ (отдельная регистрация) ===============

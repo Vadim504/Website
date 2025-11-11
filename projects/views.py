@@ -11,6 +11,13 @@ def project_detail(request, slug):
     # Используем Decimal для точности, но преобразуем в int для передачи в шаблон
     from decimal import Decimal
     base_price_with_required = int(Decimal(str(project.price)))
+    # Добавляем расчёт цены за м² для каждого этапа
+    stages_with_costs = []
+    for stage in project.stages.all():
+        stages_with_costs.append({
+            'stage': stage,
+            'cost_per_sqm': stage.cost_per_sqm,
+        })
 
     return render(request, 'projects/project_detail.html', {
         'project': project,

@@ -2,35 +2,59 @@
 {% load static %}
 
 {% block title %}Дома под ключ | Строительство и проектирование{% endblock %}
-<!-- 
+
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
-{% endblock %} -->
+{% endblock %}
 
 {% block content %}
-<!-- Знаковые проекты -->
-<section class="featured-projects" id="projects">
-    <div class="container">
-        <h2>ЗНАКОВЫЕ ПРОЕКТЫ</h2>
-
-        <!-- Фильтры -->
-        <div class="project-filters">
-            <button class="filter-btn active" data-filter="all">ГОТОВЫЕ ОБЪЕКТЫ</button>
-            <button class="filter-btn" data-filter="landscape">ЛАНДШАФТЫ</button>
-            <button class="filter-btn" data-filter="interiors">ИНТЕРЬЕРЫ</button>
+<div class="container">
+    <!-- Hero-секция -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Дома под ключ — от проекта до сдачи</h1>
+            <p>Профессиональное строительство домов по индивидуальным проектам. Качественные материалы, надежные технологии, гарантия.</p>
         </div>
+    </section>
 
-    {% for project in projects %}
-    <a href="{% url 'project_detail' project.id %}" class="project-card">
-        <div class="card">
-            {% if project.main_image %}
-                <img src="{{ project.main_image.url }}" alt="{{ project.title }}" class="card-image">
-            {% endif %}
-            <h3 class="card-title">{{ project.title }}</h3>
-            <p class="card-price">{{ project.price|floatformat:0 }} ₽</p>
+    <!-- О компании -->
+    <section class="about-company" id="about">
+        <h2 class="section-title">КТО МЫ</h2>
+        <div class="about-company-content">
+            <div class="about-company-text">
+                <h3>Мы воплощаем мечты о доме в реальность</h3>
+                <p>
+                    Наша компания — это команда профессионалов, которая уже много лет создает уютные и надежные дома.
+                    Мы верим, что дом — это не просто строение, а отражение вашего стиля жизни и семейного уюта.
+                    Наша миссия — сделать процесс строительства максимально комфортным и прозрачным для вас.
+                </p>
+            </div>
         </div>
-    </a>
-    {% endfor %}
+    </section>
 
-</section>
+    <!-- Услуги -->
+    <section class="services" id="services">
+        <h2 class="section-title">НАШИ УСЛУГИ</h2>
+        <div class="services-grid">
+            <a href="{% url 'services:interior_design_list' %}" class="service-item">
+                <h3>Интерьеры</h3>
+                <p>Создание уютных и стильных интерьеров под ваш вкус.</p>
+            </a>
+            <a href="{% url 'services:landscape_design_list' %}" class="service-item">
+                <h3>Ландшафты</h3>
+                <p>Проектирование и создание гармоничных садов и зон отдыха.</p>
+            </a>
+            <a href="{% url 'projects:list' %}" class="service-item">
+                <h3>Строительство</h3>
+                <p>Возведение домов под ключ с гарантией качества.</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Кнопка "Связаться с нами" -->
+    <section class="contact-section-full">
+        <a href="{% url 'contacts' %}" class="btn-primary btn-contact-full">Связаться с нами</a>
+    </section>
+</div>
 {% endblock %}
+

@@ -1,0 +1,200 @@
+/* services/static/services/css/landscape_design_detail.css */
+
+.landscape-design-detail-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.main-image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.main-image-container:hover {
+    transform: scale(1.01);
+}
+
+.main-image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.placeholder-image {
+    font-size: 1rem;
+    color: #888;
+}
+
+/* Галерея секций */
+.project-sections-gallery {
+    padding: 30px 0;
+}
+
+.section-gallery {
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+.section-description {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* Стили для миниатюр */
+.thumbnail-item {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+    position: relative;
+    height: 100%;
+}
+
+.thumbnail-item:hover {
+    border-color: #3498db;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.thumbnail-item.active {
+    border-color: #3498db;
+    background: #eaf7ff;
+}
+
+.thumbnail-item img {
+    width: 100%;
+    height: 200px; /* Фиксированная высота */
+    object-fit: cover; /* Обрезка по размеру */
+    display: block;
+    border-radius: 6px;
+}
+
+.caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.project-info {
+    background: #fafafa;
+    border-left: 4px solid #3498db;
+}
+
+.project-info h3 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.btn-contact {
+    display: inline-block;
+    padding: 12px 32px;
+    background: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.btn-contact:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .thumbnail-item img {
+        height: 180px;
+    }
+
+    .main-image-container img {
+        height: 300px;
+    }
+
+    .project-info {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .thumbnail-item img {
+        height: 160px;
+    }
+
+    .main-image-container img {
+        height: 250px;
+    }
+}
+
+
+.section-main-image-container {
+    flex: 1 1 0;
+    /* Главное изображение занимает всё возможное пространство */
+}
+
+.section-main-image-container:hover {
+    transform: scale(1.01);
+} 
+
+.gallery-row {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    align-items: flex-start;
+}
+.sidebar-thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 120px;
+}
+.section-main-image-container .main-img {
+    width: 100%;
+    height: 500px;    /* Сделайте больше по высоте по сравнению с миниатюрами */
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.09);
+}
+.sidebar-thumbnails .thumbnail-item img {
+    width: 96px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.sidebar-thumbnails .thumbnail-item.active img {
+    border-color: #2185d0; /* подсветка выбранной миниатюры */
+}

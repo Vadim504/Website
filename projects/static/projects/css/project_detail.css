@@ -114,6 +114,7 @@
 }
 
 /* === Цена (под галереей, на всю ширину секции) === */
+/* === Цена (под галереей, на всю ширину секции) === */
 .price-block {
     display: flex;
     align-items: center;
@@ -133,11 +134,40 @@
     font-weight: bold;
 }
 
-/* === Основной контент: узкий, читаемый === */
-.main-content {
-    max-width: 800px;
-    margin: 0 auto 40px;
+/* === НОВОЕ: Цена + описание в одном блоке === */
+.price-and-content-wrapper {
+    display: flex;
+    flex-direction: column;  /* ← главное изменение */
+    gap: 30px;
+    align-items: flex-start;
+    margin: 20px 0 40px;
 }
+
+
+.price-block-aligned {
+    min-width: 250px; /* фиксируем ширину цены, чтобы она не прыгала */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.price-block-aligned .price-label {
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.price-block-aligned .price {
+    font-size: 1.8rem;
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.main-content {
+    max-width: none; /* убираем ограничение, если оно было */
+    flex: 1; /* занимает всё оставшееся пространство */
+}
+
 
 /* Заголовки секций */
 .specs-section h3,
@@ -334,18 +364,6 @@
 }
 
 .stage-checkbox {
-<<<<<<< HEAD
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    min-width: 60px;
-}
-
-.required-check {
-    color: #27ae60;
-    font-weight: bold;
-=======
     width: 38px;
     text-align: center;
     align-self: center;
@@ -384,12 +402,11 @@
 .required-check {
     font-size: 1.15em;
     color: #27ae60;
->>>>>>> eb5d939 (make_changes_2)
 }
 
 .calculation-result {
     margin-top: 25px;
-    text-align: center;
+    text-align: left;
 }
 
 .total-price {
@@ -486,4 +503,43 @@
     .tech-column.active-tech {
         display: block !important;
     }
+}
+
+.plan-gallery-section h3 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.price-and-content-wrapper {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin: 20px 0 40px;
+}
+
+.price-block {
+    min-width: 250px; /* фиксируем ширину цены, чтобы она не прыгала */
+    padding-top: 10px; /* немного отступ сверху, чтобы выровнять с заголовком "Характеристики" */
+}
+
+.main-content {
+    max-width: none; /* убираем ограничение, если оно было */
+    flex: 1; /* занимает всё оставшееся пространство */
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-top: 40px;
+    margin-bottom: 24px;
+    text-align: left;           /* по левому краю */
+    text-transform: uppercase;  /* если нужны ВСЕ ПРОПИСНЫЕ */
+    letter-spacing: 1px;
 }

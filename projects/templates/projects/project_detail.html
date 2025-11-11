@@ -10,11 +10,7 @@
 {% endblock %}
 
 {% block content %}
-<<<<<<< HEAD
 <div class="project-detail-page">
-=======
-<div class="project-detail-page" data-area="{{ project.area_total }}" data-base-price="{{ base_price_with_required }}">
->>>>>>> eb5d939 (make_changes_2)
     <!-- Заголовок -->
     <div class="header-row">
         <h1 class="project-title">{{ project.title }}</h1>
@@ -47,20 +43,6 @@
                 {% endwith %}
             </div>
 
-<<<<<<< HEAD
-            {% if project.images.all or project.main_image %}
-                <div class="thumbnails-container">
-                    {% for img in project.images.all %}
-                        <div class="thumbnail {% if forloop.first %}active{% endif %}" data-image="{{ img.image.url }}">
-                            <img src="{{ img.image.url }}" alt="Фото {{ forloop.counter }}" class="thumbnail-image">
-                        </div>
-                    {% empty %}
-                        <div class="thumbnail active" data-image="{{ project.main_image.url }}">
-                            <img src="{{ project.main_image.url }}" alt="Главное фото" class="thumbnail-image">
-                        </div>
-                    {% endfor %}
-                </div>
-=======
             {% with gallery_images=project.get_gallery_images %}
             {% if gallery_images.exists %}
             <div class="thumbnails-container">
@@ -76,86 +58,82 @@
                     <img src="{{ project.main_image.url }}" alt="Главное фото" class="thumbnail-image">
                 </div>
             </div>
->>>>>>> eb5d939 (make_changes_2)
             {% endif %}
             {% endwith %}
         </div>
-
-<<<<<<< HEAD
-        <div class="price-block">
-            <span class="price-label">Цена:</span>
-            <span class="price">{{ project.price|floatformat:0 }} ₽</span>
-=======
-        <div class="project-base-price">
-            От <strong id="base-price">{{ base_price_with_required|intcomma }} ₽</strong>
->>>>>>> eb5d939 (make_changes_2)
-        </div>
-
-        
     </section>
 
-    <!-- Основной контент (узкий, читаемый) -->
-    <div class="main-content">
-        <!-- Характеристики -->
-        <section class="specs-section">
-            <h2>Характеристики</h2>
-            <div class="specs">
-                <div class="spec-item">
-                    <span class="label">Площадь дома:</span>
-                    <span class="value">{{ project.area_total }} м²</span>
-                </div>
-                {% if project.area_garage %}
-                    <div class="spec-item">
-                        <span class="label">Навес для авто:</span>
-                        <span class="value">{{ project.area_garage }} м²</span>
-                    </div>
-                {% endif %}
-                {% if project.area_terrace %}
-                    <div class="spec-item">
-                        <span class="label">Крытая терраса:</span>
-                        <span class="value">{{ project.area_terrace }} м²</span>
-                    </div>
-                {% endif %}
-                <div class="spec-item">
-                    <span class="label">Спальни:</span>
-                    <span class="value">{{ project.bedrooms }}</span>
-                </div>
-                <div class="spec-item">
-                    <span class="label">Санузлы:</span>
-                    <span class="value">{{ project.bathrooms }}</span>
-                </div>
-            </div>
-        </section>
+    <!-- === ЦЕНА + ОСНОВНОЙ КОНТЕНТ В ОДНОМ БЛОКЕ === -->
+    <div class="price-and-content-wrapper">
+        <!-- Цена слева -->
+        <div class="price-block-aligned">
+            <span class="price-label">Цена:</span>
+            <span class="price">{{ project.price|floatformat:0 }} ₽</span>
+        </div>
 
-        <!-- Особенности -->
-        <section class="features">
-            <h2>Особенности</h2>
-            {% for feature in project.features.all %}
-                <span class="feature-tag">{{ feature.name }}</span>
-            {% empty %}
-                <p>Особенности не указаны.</p>
-            {% endfor %}
-        </section>
+        <!-- Основной контент справа -->
+        <div class="main-content">
+            <!-- Характеристики -->
+            <section class="specs-section">
+                <h2 class="section-title">Характеристики</h2>
+                <div class="specs">
+                    <div class="spec-item">
+                        <span class="label">Площадь дома:</span>
+                        <span class="value">{{ project.area_total }} м²</span>
+                    </div>
+                    {% if project.area_garage %}
+                        <div class="spec-item">
+                            <span class="label">Навес для авто:</span>
+                            <span class="value">{{ project.area_garage }} м²</span>
+                        </div>
+                    {% endif %}
+                    {% if project.area_terrace %}
+                        <div class="spec-item">
+                            <span class="label">Крытая терраса:</span>
+                            <span class="value">{{ project.area_terrace }} м²</span>
+                        </div>
+                    {% endif %}
+                    <div class="spec-item">
+                        <span class="label">Спальни:</span>
+                        <span class="value">{{ project.bedrooms }}</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="label">Санузлы:</span>
+                        <span class="value">{{ project.bathrooms }}</span>
+                    </div>
+                </div>
+            </section>
 
-        <!-- Описание -->
-        <section class="description">
-            <h2>Описание проекта</h2>
-            {{ project.description|linebreaks }}
-        </section>
+            <!-- Особенности -->
+            <section class="features">
+                <h2 class="section-title">Особенности</h2>
+                {% for feature in project.features.all %}
+                    <span class="feature-tag">{{ feature.name }}</span>
+                {% empty %}
+                    <p>Особенности не указаны.</p>
+                {% endfor %}
+            </section>
+
+            <!-- Описание -->
+            <section class="description">
+                <h2 class="section-title">Описание проекта</h2>
+                {{ project.description|linebreaks }}
+            </section>
+        </div>
     </div>
 
     <!-- Планы и фасады (широкая галерея) -->
-    <section class="plan-gallery">
-    <h2>ПЛАНЫ И ФАСАДЫ</h2>
+    <section class="plan-gallery-section">
+        <h2 class="section-title">Планы и Фасады</h2>
 
-    <div class="gallery-wrapper">
+        <div class="plan-gallery">
             <!-- Основное изображение -->
-            <div class="main-image-container">
+            <div class="plan-main-image-container">
                 {% if project.plans.all %}
                     <div class="image-counter">
                         <span id="current-plan">1</span>/<span id="total-plans">{{ project.plans.all|length }}</span>
                     </div>
-                    <img id="main-plan-image" src="{{ project.plans.first.image.url }}" alt="План" class="main-image">
+                    <img id="main-plan-image" src="{{ project.plans.first.image.url }}" alt="План" class="plan-main-image">
                 {% else %}
                     <div class="no-image-placeholder">
                         <p>Планы не загружены</p>
@@ -165,7 +143,7 @@
 
             <!-- Миниатюры -->
             {% if project.plans.all %}
-                <div class="thumbnails-container plan-thumbnails">
+                <div class="plan-thumbnails-container">
                     {% for plan in project.plans.all %}
                         <div class="thumbnail {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}" data-image="{{ plan.image.url }}">
                             <img src="{{ plan.image.url }}" alt="План {{ forloop.counter }}" class="thumbnail-image">
@@ -178,8 +156,9 @@
 
     <!-- Калькулятор (на всю ширину) -->
     <section class="construction-calculator full-width-section">
-        <h2>РАСЧЁТ СТОИМОСТИ СТРОИТЕЛЬСТВА</h2>
+        <h2 class="section-title">Расчет стоимости строительства</h2>
 
+        <!-- Выбор технологии -->
         <div class="tech-selector">
             <p>Выберите технологию строительства:</p>
             <div class="tech-buttons">
@@ -189,6 +168,7 @@
             </div>
         </div>
 
+        <!-- Таблица этапов -->
         <div class="cost-table">
             {% for stage in project.stages.all %}
                 <div class="stage-row {% if stage.is_required %}required{% else %}optional{% endif %}">
@@ -196,73 +176,51 @@
                     <div class="stage-title">{{ stage.title }}</div>
                     <div class="stage-description">{{ stage.description }}</div>
 
-                    <div class="tech-column frame">{{ stage.cost_frame|intcomma }} ₽</div>
-                    <div class="tech-column gasconcrete">{{ stage.cost_gasconcrete|intcomma }} ₽</div>
-                    <div class="tech-column brick">{{ stage.cost_brick|intcomma }} ₽</div>
+                    <div class="tech-column">Цена за м²: {{ stage.cost_per_sqm|intcomma }} ₽</div>
 
-                    <div class="stage-checkbox">
+                    <!-- Отображение цены для текущей технологии (для визуала) -->
+                    <div class="stage-price">
                         {% if stage.is_required %}
                             <span class="required-check">✓</span>
+                            <span class="price-text">Обязательно</span>
                         {% else %}
                             <input type="checkbox" class="stage-check"
                                 data-stage-id="{{ stage.id }}"
-                                data-price-frame="{{ stage.cost_frame }}"
-                                data-price-gasconcrete="{{ stage.cost_gasconcrete }}"
-                                data-price-brick="{{ stage.cost_brick }}">
+                                data-cost-per-sqm="{{ stage.cost_per_sqm }}">
+                            <span class="price-text">Выбрать</span>
                         {% endif %}
                     </div>
                 </div>
-<<<<<<< HEAD
-=======
-                <div class="stage-checkbox">
-                    {% if stage.is_required %}
-                        <span class="required-check">✓</span>
-                    {% else %}
-                        <input type="checkbox"  id="stage-{{ stage.id }}" class="stage-check"
-                        data-cost-per-m2="{{ stage.cost_per_m2 }}">
-                    <!-- Или, если stage.id нет, можно использовать forloop.counter -->
-                    <!-- <input type="checkbox"  id="stage-{{ forloop.counter }}" class="stage-check"
-                        data-cost-per-m2="{{ stage.cost_per_m2 }}"> -->
-                        <label for="stage-{{ stage.id }}"></label> <!-- Добавляем label для удобства клика -->
-                    {% endif %}
-                </div>
-            </div>
->>>>>>> eb5d939 (make_changes_2)
             {% endfor %}
         </div>
 
+        <!-- Результат -->
         <div class="calculation-result">
             <div class="total-price">
                 Итоговая стоимость: <strong id="total-amount">0 ₽</strong>
             </div>
-            <div class="calc-buttons">
-                <button id="calculate-btn" class="btn-calculate">Рассчитать</button>
-                <button id="reset-btn" class="btn-reset">Сбросить</button>
-            </div>
         </div>
     </section>
-</div>
-
-<!-- Lightbox -->
-<div id="lightbox" class="lightbox">
-    <div class="lightbox-content">
-        <div class="lightbox-counter">1 / {{ project.images.all|length }}</div>
-        <span class="lightbox-close">&times;</span>
-        <button class="lightbox-prev">&#10094;</button>
-        <img id="lightbox-main-image" class="lightbox-img" src="" alt="Увеличенное изображение">
-        <div class="lightbox-thumbnails">
-            {% for img in project.images.all %}
-                <div class="lightbox-thumbnail {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}">
-                    <img src="{{ img.image.url }}" alt="Миниатюра {{ forloop.counter }}">
-                </div>
-            {% endfor %}
-        </div>
-        <button class="lightbox-next">&#10095;</button>
-    </div>
-</div>
-
 {% endblock %}
 
 {% block extra_js %}
+    <!-- Передаём данные через скрытый div -->
+    <div id="project-data"
+         data-base-price="{{ project.price|default:0 }}"
+         data-area-total="{{ project.area_total|floatformat:2|float }}"
+         data-tech-coefficients='{"frame": 1.0, "gasconcrete": 1.2, "brick": 1.5}'
+         data-stages='[
+           {% for stage in project.stages.all %}
+             {
+               "id": {{ stage.id }},
+               "title": "{{ stage.title|escapejs }}",
+               "description": "{{ stage.description|escapejs }}",
+               "isRequired": {{ stage.is_required|yesno:"true,false" }},
+               "costPerSqm": {{ stage.cost_per_sqm|floatformat:2|float }}
+             }{% if not forloop.last %},{% endif %}
+           {% endfor %}
+         ]'>
+    </div>
+    <script src="{% static 'projects/js/calculator.js' %}"></script>
     <script src="{% static 'projects/js/project_detail.js' %}"></script>
 {% endblock %}

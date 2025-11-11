@@ -1,160 +1,219 @@
-/* Главная страница */
-.home-page {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: #333;
+    background: #faf7ee;
+    margin: 0;
+    line-height: 1.6;
 }
 
-/* Герой-секция */
-.hero {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/static/images/hero-bg.jpg') center/cover no-repeat;
-    color: white;
-    text-align: center;
-    padding: 100px 20px;
-}
-
-.hero h1 {
-    font-size: 2.8rem;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 1.2rem;
-    max-width: 700px;
-    margin: 0 auto 30px;
-}
-
-/* Общий контейнер */
-.container {
+/* Контейнер */
+.main-container, .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* Заголовки секций */
-.section-title {
+/* Hero-секция */
+.hero {
+    padding: 56px 0 40px 0;
+    background: linear-gradient(90deg, #fbeee6 0%, #faf7ee 100%);
+    border-radius: 16px;
+    box-shadow: 0 10px 32px rgba(0,0,0,0.07);
+    margin-bottom: 36px;
+}
+.hero-content {
+    max-width: 690px;
+    margin: 0 auto;
     text-align: center;
-    font-size: 2.2rem;
-    color: #2c3e50;
-    margin-bottom: 15px;
 }
-
-.section-subtitle {
-    text-align: center;
-    color: #7f8c8d;
-    margin-bottom: 50px;
-    font-size: 1.1rem;
+.hero h1 {
+    font-size: 2.7rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 24px;
 }
-
-/* Услуги */
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-bottom: 60px;
-}
-
-.service-card {
-    background: white;
-    padding: 30px 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    text-align: center;
-    transition: transform 0.3s ease;
-}
-
-.service-card:hover {
-    transform: translateY(-8px);
-}
-
-.service-icon {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
-
-.service-card h3 {
-    font-size: 1.4rem;
-    color: #2c3e50;
-    margin-bottom: 15px;
-}
-
-.service-card p {
-    color: #666;
-    line-height: 1.6;
-}
-
-/* Преимущества */
-.advantages-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-    margin-bottom: 60px;
-}
-
-.advantage-item h3 {
-    color: #27ae60;
-    margin-bottom: 8px;
-}
-
-.advantage-item p {
-    color: #666;
-}
-
-/* Призыв к действию */
-.cta {
-    background: #f8f9fa;
-    text-align: center;
-    padding: 70px 20px;
-    margin: 60px 0;
-}
-
-.cta h2 {
-    font-size: 2rem;
-    color: #2c3e50;
-    margin-bottom: 15px;
-}
-
-.cta p {
-    color: #666;
-    margin-bottom: 25px;
+.hero p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 28px;
 }
 
 /* Кнопки */
-.btn {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
+.btn-primary, .btn-contact-full {
+    background: #e74c3c !important;
+    color: #fff !important;
+    border-radius: 28px !important;
+    font-weight: bold !important;
+    font-size: 1.1rem !important;
+    padding: 14px 32px !important;
+    border: none !important;
+    text-decoration: none !important;
+    box-shadow: 0 2px 12px rgba(231,76,60,0.05) !important;
+    display: inline-block !important;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    transition: background 0.3s, transform 0.3s;
 }
-
-.btn-primary {
-    background: #e74c3c;
-    color: white;
-}
-
-.btn-primary:hover {
-    background: #c0392b;
+.btn-primary:hover, .btn-contact-full:hover {
+    background: #c0392b !important;
     transform: scale(1.05);
 }
-
 .btn-secondary {
-    background: #3498db;
-    color: white;
+    background: #fff !important;
+    border: 2px solid #e74c3c !important;
+    color: #e74c3c !important;
+    border-radius: 28px !important;
+    font-weight: bold !important;
+    font-size: 1.1rem !important;
+    padding: 13px 30px !important;
+    text-decoration: none !important;
+    margin-bottom: 10px;
+    margin-right: 8px;
+    display: inline-block !important;
+    transition: background 0.3s, color 0.3s;
+}
+.btn-secondary:hover {
+    background: #e74c3c !important;
+    color: #fff !important;
 }
 
-.btn-secondary:hover {
-    background: #2980b9;
-    transform: scale(1.05);
+/* Заголовки секций */
+.section-title, .custom-section-title {
+    text-align: center;
+    font-size: 2.1rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+.section-title::after, .custom-section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #e74c3c;
+    margin: 12px auto 0;
+    border-radius: 2px;
+}
+
+/* О компании */
+.about-company {
+    padding: 78px 0;
+    background: #f9f9f9;
+}
+.about-company-content {
+    background: #fff;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.12);
+    border-radius: 14px;
+    padding: 38px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+}
+.about-company-text {
+    flex: 2;
+}
+.about-company-text h3 {
+    font-size: 1.7rem;
+    color: #2c3e50;
+    margin-bottom: 18px;
+}
+.about-company-text p {
+    color: #666;
+    line-height: 1.7;
+}
+.about-company-image {
+    flex: 1;
+}
+.about-company-image img {
+    width: 100%;
+    max-width: 320px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.10);
+}
+
+/* Секция услуг */
+.services {
+    padding: 40px 0 30px 0;
+}
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 32px;
+    margin-top: 38px;
+    margin-bottom: 60px;
+}
+.service-item {
+    background: #fff !important;
+    border: 1px solid #ececec !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06) !important;
+    padding: 30px 20px !important;
+    text-align: center !important;
+    color: #333 !important;
+    text-decoration: none !important;
+    font-weight: normal !important;
+    display: block !important;
+    transition: box-shadow 0.2s, border-color 0.2s, transform 0.3s;
+    margin-bottom: 0;
+}
+.service-item:hover {
+    box-shadow: 0 8px 32px rgba(231,76,60,0.13);
+    border-color: #e74c3c !important;
+    transform: translateY(-5px);
+}
+.service-item h3 {
+    font-size: 1.18rem !important;
+    color: #e74c3c !important;
+    margin-bottom: 14px !important;
+    font-weight: bold !important;
+}
+.service-item p {
+    color: #555 !important;
+    font-size: 1rem !important;
+    margin-bottom: 0 !important;
+}
+
+/* Ссылки услуг */
+.service-item,
+.service-item:visited,
+.service-item:active,
+.service-item:link {
+    color: #333 !important;
+    text-decoration: none !important;
+}
+
+/* Секция "Связаться с нами" */
+.contact-section-full {
+    padding: 60px 0;
+    background: #2c3e50;
+    text-align: center;
 }
 
 /* Адаптивность */
+@media (max-width: 900px) {
+    .about-company-content {
+        flex-direction: column;
+        padding: 26px;
+        gap: 24px;
+    }
+    .about-company-image img {
+        max-width: 200px;
+    }
+}
 @media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2rem;
-    }
-
-    .section-title {
-        font-size: 1.8rem;
-    }
+    .main-container, .container { padding: 0 4px; }
+    .hero h1 { font-size: 2rem; }
+    .section-title, .custom-section-title { font-size: 1.2rem; }
+    .about-company-content { padding: 14px; }
+    .service-item { padding: 14px 6px !important; }
+    .services-grid { gap: 14px; }
+    .about-company-image img { max-width: 140px; }
+}
+@media (max-width: 576px) {
+    .hero-content { padding: 0 2px; }
+    .section-title, .custom-section-title { font-size: 0.95rem; }
+    .about-company-content { padding: 2px; }
+    .about-company-image img { max-width: 90px; }
 }
