@@ -77,89 +77,9 @@
 }
 
 .equipment-card-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.equipment-card-link:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-}
-
-.card-image {
-    width: 100%;
-    height: 200px;
-    background: #f5f5f5;
+    height: 250px; /* подберите нужное значение (например 300–360px) */
     display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.placeholder-image {
-    color: #888;
-    font-size: 0.9rem;
-}
-
-.card-title {
-    padding: 16px 16px 8px;
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.card-meta {
-    padding: 0 16px 16px;
-    display: flex;
-    justify-content: space-between;
-    color: #555;
-    font-size: 0.95rem;
-}
-
-.no-results {
-    grid-column: 1 / -1;
-    text-align: center;
-    color: #666;
-    padding: 40px;
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-    .rent-layout {
-        flex-direction: column;
-    }
-
-    .filters-sidebar {
-        order: 2;
-    }
-
-    .cards-container {
-        order: 1;
-    }
-}
-
-/* Карточки справа */
-.cards-container {
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
-}
-
-.equipment-card-link {
-    display: block;
+    flex-direction: column;
     text-decoration: none;
     color: inherit;
     background: white;
@@ -177,7 +97,7 @@
 
 .card-image {
     width: 100%;
-    height: 200px;
+    height: 160px; /* ← уменьшили высоту */
     background: #f8f9fa;
     display: flex;
     align-items: center;
@@ -201,7 +121,7 @@
 .card-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* ← обрезаем по краям */
     transition: transform 0.3s ease;
 }
 
@@ -218,12 +138,17 @@
 }
 
 .card-content {
-    padding: 16px;
+    flex: 1 1 auto;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+
 .card-title {
-    margin: 0 0 10px;
-    font-size: 1.15rem;
+    margin: 0 0 6px; /* ← уменьшили отступ */
+    font-size: 1.0rem; /* ← уменьшили размер шрифта */
     font-weight: 600;
     color: #2c3e50;
     line-height: 1.3;
@@ -233,9 +158,9 @@
     display: flex;
     justify-content: space-between;
     color: #555;
-    font-size: 0.95rem;
+    font-size: 0.9rem; /* ← уменьшили размер шрифта */
     border-top: 1px solid #f0f0f0;
-    padding-top: 10px;
+    padding-top: 8px; /* ← уменьшили отступ сверху */
 }
 
 .price {
@@ -246,4 +171,26 @@
 .capacity {
     font-weight: 500;
     color: #7f8c8d;
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #666;
+    padding: 40px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .rent-layout {
+        flex-direction: column;
+    }
+
+    .filters-sidebar {
+        order: 2;
+    }
+
+    .cards-container {
+        order: 1;
+    }
 }

@@ -145,7 +145,7 @@
             {% if project.plans.all %}
                 <div class="plan-thumbnails-container">
                     {% for plan in project.plans.all %}
-                        <div class="thumbnail {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}" data-image="{{ plan.image.url }}">
+                        <div class="thumbnail {% if forloop.first %}active{% endif %}" data-image="{{ plan.image.url }}">
                             <img src="{{ plan.image.url }}" alt="План {{ forloop.counter }}" class="thumbnail-image">
                         </div>
                     {% endfor %}
@@ -207,7 +207,7 @@
     <!-- Передаём данные через скрытый div -->
     <div id="project-data"
          data-base-price="{{ project.price|default:0 }}"
-         data-area-total="{{ project.area_total|floatformat:2|float }}"
+         data-area-total="{{ project.area_total|floatformat:2 }}"
          data-tech-coefficients='{"frame": 1.0, "gasconcrete": 1.2, "brick": 1.5}'
          data-stages='[
            {% for stage in project.stages.all %}
@@ -216,11 +216,12 @@
                "title": "{{ stage.title|escapejs }}",
                "description": "{{ stage.description|escapejs }}",
                "isRequired": {{ stage.is_required|yesno:"true,false" }},
-               "costPerSqm": {{ stage.cost_per_sqm|floatformat:2|float }}
+               "costPerSqm": {{ stage.cost_per_sqm|floatformat:2 }}
              }{% if not forloop.last %},{% endif %}
            {% endfor %}
          ]'>
     </div>
     <script src="{% static 'projects/js/calculator.js' %}"></script>
     <script src="{% static 'projects/js/project_detail.js' %}"></script>
+    <script src="{% static 'projects/js/plan.js' %}"></script>
 {% endblock %}

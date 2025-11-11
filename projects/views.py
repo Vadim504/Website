@@ -1,8 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from .models import HouseProject, Stage
+from .models import HouseProject
 from django.db.models import Sum
 
-# views.py
 def project_detail(request, slug):
     project = get_object_or_404(HouseProject, slug=slug)
     
@@ -11,6 +10,7 @@ def project_detail(request, slug):
     # Используем Decimal для точности, но преобразуем в int для передачи в шаблон
     from decimal import Decimal
     base_price_with_required = int(Decimal(str(project.price)))
+    
     # Добавляем расчёт цены за м² для каждого этапа
     stages_with_costs = []
     for stage in project.stages.all():
@@ -21,7 +21,7 @@ def project_detail(request, slug):
 
     return render(request, 'projects/project_detail.html', {
         'project': project,
-        'stages': Stage.objects.all(),
+        'stages_with_costs': stages_with_costs,
         'base_price_with_required': base_price_with_required,  # Базовая цена с обязательными этапами и технологией "каркас"
     })
 
@@ -72,4 +72,3 @@ def project_list(request):
     }
 
     return render(request, 'projects/project_list.html', context)
-
