@@ -65,25 +65,23 @@
     </div>
 
     <!-- Секции по комнатам -->
-    {% for section in project.sections.all %}
+    {% for item in sections_with_images %}
     <section class="room-section">
-        <h2>{{ section.title }}</h2>
-        {% if section.description %}
-        <p class="room-description">{{ section.description|linebreaks }}</p>
+        <h2>{{ item.section.title }}</h2>
+
+        {% if item.section.description %}
+        <p class="room-description">{{ item.section.description|linebreaks }}</p>
         {% endif %}
 
-        {% if section.images.all %}
+        <!-- Галерея для этой секции -->
         <div class="room-gallery">
-            {% for img in section.images.all %}
-            <div class="room-image">
-                <img src="{{ img.image.url }}" alt="{{ section.title }} - фото {{ forloop.counter }}">
-            </div>
+            {% for img in item.images %}
+            <img src="{{ img.image.url }}" alt="{{ item.section.title }} - фото {{ forloop.counter }}" class="gallery-image">
             {% endfor %}
         </div>
-        {% endif %}
     </section>
     {% empty %}
-    <p class="no-sections">Пока нет секций для этого проекта.</p>
+    <p class="no-sections">Пока нет секций с изображениями.</p>
     {% endfor %}
 
     <!-- Кнопка "Назад" -->

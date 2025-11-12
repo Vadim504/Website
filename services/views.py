@@ -1,6 +1,6 @@
 # services/views.py
 from django.shortcuts import render, get_object_or_404
-from .models import Service, Equipment, EquipmentType, Project
+from .models import Service, Equipment, EquipmentType, Project, SectionImage
 
 def equipment_detail(request, pk):
     equipment = get_object_or_404(Equipment, pk=pk)
@@ -11,10 +11,25 @@ def interior_design_list(request):
     projects = Project.objects.filter(service_type='interior')  # ✅ Только интерьерные
     return render(request, 'services/interior_design_list.html', {'projects': projects})
 
+# projects/views.py
+# projects/views.py
 def interior_design(request, pk):
-    """Детальная страница одного проекта."""
-    project = get_object_or_404(Project, pk=pk)
-    return render(request, 'services/interior_design_detail.html', {'project': project})
+    project = get_object_or_404(Project, pk=pk, service_type='interior')  # ← Используй Project, не SectionImage!
+
+    # Собираем все секции с изображениями
+    sections_with_images = []
+    for section in project.sections.all():
+        images = list(section.images.all())
+        if images:
+            sections_with_images.append({
+                'section': section,
+                'images': images
+            })
+
+    return render(request, 'services/interior_design_detail.html', {
+        'project': project,
+        'sections_with_images': sections_with_images,
+    })
 
 def landscape_design_list(request):
     """Страница со списком проектов ландшафтного дизайна."""
